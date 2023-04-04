@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { DarkModeContext } from '../context/DarkModeContext';
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export default function Card2({
 	id,
@@ -20,33 +21,35 @@ export default function Card2({
 		unknown: '🔘',
 	};
 
-	const handleClose = () => {
-		onClose(id);
+	const handleClose = (event) => {
+		onClose(event, id);
 	};
 
 	return (
-		<CardStyled darkMode={darkMode}>
-			<CarsContainerStyled>
-				<ImgCardStyled
-					src={image}
-					alt={name}
-				/>
-				<InfoContainerStyled>
-					<InfoHeaderStyled>
-						<span title={status}>{statusIcon[status]}</span>
-						<h3>{name}</h3>
-					</InfoHeaderStyled>
-					<InfoBodyStyled>
-						<InfoTextStyled>{species}</InfoTextStyled>
-						<InfoTextStyled>{gender}</InfoTextStyled>
-						<InfoTextStyled>Location: {origin.name}</InfoTextStyled>
-					</InfoBodyStyled>
-					<ButtonCloseCardStyled onClick={handleClose}>
-						✖️
-					</ButtonCloseCardStyled>
-				</InfoContainerStyled>
-			</CarsContainerStyled>
-		</CardStyled>
+		<Link to={`/detail/${id}`}>
+			<CardStyled darkMode={darkMode}>
+				<CarsContainerStyled>
+					<ImgCardStyled
+						src={image}
+						alt={name}
+					/>
+					<InfoContainerStyled>
+						<InfoHeaderStyled>
+							<span title={status}>{statusIcon[status]}</span>
+							<h3>{name}</h3>
+						</InfoHeaderStyled>
+						<InfoBodyStyled>
+							<InfoTextStyled>{species}</InfoTextStyled>
+							<InfoTextStyled>{gender}</InfoTextStyled>
+							<InfoTextStyled>Location: {origin.name}</InfoTextStyled>
+						</InfoBodyStyled>
+						<ButtonCloseCardStyled onClick={handleClose}>
+							✖️
+						</ButtonCloseCardStyled>
+					</InfoContainerStyled>
+				</CarsContainerStyled>
+			</CardStyled>
+		</Link>
 	);
 }
 

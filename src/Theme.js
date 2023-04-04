@@ -1,3 +1,13 @@
+const size = {
+	mobileS: '320px',
+	mobileM: '375px',
+	mobileL: '425px',
+	tablet: '768px',
+	laptop: '1024px',
+	laptopL: '1440px',
+	desktop: '2560px',
+};
+
 export const theme = {
 	colors: {
 		lime: {
@@ -149,13 +159,10 @@ export const theme = {
 		xl_9: '8rem',
 	},
 	screenSize: {
-		mobileS: '320px',
-		mobileM: '375px',
-		mobileL: '425px',
-		tablet: '768px',
-		laptop: '1024px',
-		laptopL: '1440px',
-		desktop: '2560px',
+		mobileM: `(min-width: ${size.mobileM})`,
+		tablet: `(min-width: ${size.tablet})`,
+		laptop: `(min-width: ${size.laptop})`,
+		desktop: `(min-width: ${size.desktop})`,
 	},
 };
 

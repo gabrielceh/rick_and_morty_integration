@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import BtnDarkMode from './BtnDarkMode';
 import logoRickMorty from '../assets/images/Rick_and_Morty_Logop.png';
 import BtnGetRandom from './BtnGetRandom';
+import NavHeader from './NavHeader';
 
 function Header({ onSearch, characters }) {
 	return (
@@ -14,13 +15,14 @@ function Header({ onSearch, characters }) {
 					alt='Rick and Morty Logo'
 				/>
 				<ContainerRigthSideStyled>
+					<NavHeader />
 					<SearchBar onSearch={onSearch} />
 					<BtnGetRandom
 						onSearch={onSearch}
 						characters={characters}
 					/>
+					<BtnDarkMode />
 				</ContainerRigthSideStyled>
-				<BtnDarkMode />
 			</HeaderContainerStyled>
 		</HeaderStyled>
 	);
@@ -40,6 +42,7 @@ const HeaderStyled = styled.header`
 	background: ${({ theme }) => `${theme.body}dd`};
 	backdrop-filter: blur(5px);
 	border-bottom: ${({ theme }) => `1px solid ${theme.colors.emerald['200']}`};
+	transition: background 0.5s ease-in;
 `;
 
 const HeaderContainerStyled = styled.div`
@@ -63,5 +66,5 @@ const ContainerRigthSideStyled = styled.div`
 	gap: 1rem;
 	flex-wrap: wrap;
 	align-items: center;
-	jus
+	justify-content: space-evenly;
 `;
