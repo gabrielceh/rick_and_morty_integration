@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { DarkModeContext } from '../context/DarkModeContext';
 
 function SearchBar({ onSearch }) {
 	const [id, setId] = useState('');
+	const { darkMode } = useContext(DarkModeContext);
 
 	const handleChange = (e) => {
 		setId(e.target.value);
@@ -19,6 +21,7 @@ function SearchBar({ onSearch }) {
 				type='search'
 				value={id}
 				onChange={handleChange}
+				mode={darkMode}
 			/>
 			<ButtonSearchStyled onClick={handleClick}>🔍</ButtonSearchStyled>
 		</SearchContainerStyled>
@@ -39,7 +42,10 @@ const SearchInputStyled = styled.input`
 	font-family: 'ChakraPetch';
 	font-weight: 600;
 	color: ${({ theme }) => theme.text};
-	background-color: ${({ theme }) => theme.body};
+	background-color: ${({ theme, mode }) =>
+		`${
+			mode === 'light' ? theme.colors.slate['200'] : theme.colors.slate['600']
+		}`};
 	outline: none;
 	border: ${({ theme }) => `2px dashed transparent`};
 	border-radius: 5px;

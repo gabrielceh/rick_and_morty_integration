@@ -138,7 +138,7 @@ export const theme = {
 		sm: '0.85rem',
 		base: '1rem',
 		lg: '1.125rem',
-		xl: '1.25rem',
+		xl: '1.20rem', //"1.25rem"
 		xl_2: '1.5rem',
 		xl_3: '1.85rem',
 		xl_4: '2.25rem',

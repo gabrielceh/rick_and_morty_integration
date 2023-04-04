@@ -12,6 +12,7 @@ import waveImage from './assets/images/wave2.svg';
 
 import Cards from './components/Cards.jsx';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
 	const [characters, setCharacters] = useState([]);
@@ -48,23 +49,19 @@ function App() {
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyles />
-			<div>
-				<BackgroundBody>
-					{/* Añadir atribucion
-					<a href="https://es.lovepik.com/images/png-degraded.html">Degradado Png vectors by Lovepik.com</a> 
-					 */}
-				</BackgroundBody>
+			<BackgroundBody />
+			<AppContainer>
 				<Header
 					onSearch={onSearch}
 					characters={characters}
 				/>
-				<main style={{ paddingTop: '200px' }}>
-					<Cards
-						characters={characters}
-						onClose={onClose}
-					/>
-				</main>
-			</div>
+
+				<Cards
+					characters={characters}
+					onClose={onClose}
+				/>
+			</AppContainer>
+			<Footer />
 		</ThemeProvider>
 	);
 }
@@ -82,6 +79,14 @@ const BackgroundBody = styled.div`
 	background-image: url(${waveImage});
 	background-size: auto 100%;
 	background-repeat: no-repeat;
-	background-position: 10% 300px;
+	background-position: 10% 200px;
 	filter: blur(10px) opacity(0.35);
+`;
+
+const AppContainer = styled.div`
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 `;

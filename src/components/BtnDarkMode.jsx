@@ -9,7 +9,9 @@ function BtnDarkMode() {
 
 	return (
 		<>
-			<BtnDarkStyled onClick={handleThemeToggler}>
+			<BtnDarkStyled
+				onClick={handleThemeToggler}
+				title='Dark mode'>
 				{darkMode === 'light' ? '🌚' : '🌞'}
 			</BtnDarkStyled>
 		</>

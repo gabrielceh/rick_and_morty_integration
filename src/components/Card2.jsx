@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { DarkModeContext } from '../context/DarkModeContext';
 import styled, { keyframes } from 'styled-components';
 
@@ -51,8 +51,15 @@ export default function Card2({
 }
 
 const moveFrames = keyframes`
+0%{
+	scale:1;
+}
+50%{
+	scale:0.9
+}
 100%{
-	transform: rotate(360deg)
+	/* transform: rotate(360deg); */
+	scale: 1;
 }
 `;
 
@@ -61,20 +68,15 @@ const CardStyled = styled.article`
 	position: relative;
 	width: 300px;
 	height: 300px;
-	border: ${(props) => `$1px solid ${props.theme.colors.slate['500']}`};
 	transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out,
 		scale 0.3s ease-in;
 	border-radius: 7px;
 	overflow: hidden;
 
 	&:hover {
-		box-shadow: ${({ theme, darkMode }) =>
-			`0px 0px 25px 5px ${
-				darkMode === 'light'
-					? theme.colors.slate['400']
-					: theme.colors.slate['700']
-			}`};
-		border: 1px solid transparent;
+		animation-name: shadowCardFrames;
+		animation-duration: 3s;
+		animation-iteration-count: infinite;
 	}
 
 	&::after,
@@ -92,6 +94,7 @@ const CardStyled = styled.article`
 			`linear-gradient(0deg, ${theme.colors.emerald['400']} 0%, ${theme.colors.yellow['300']} 100%)`};
 		/* background-image: ${({ theme }) =>
 			`linear-gradient(0deg, ${theme.colors.pink['400']} 0%, ${theme.colors.purple['500']} 100%)`}; */
+		scale: 1;
 	}
 
 	&:hover::before {
@@ -107,6 +110,34 @@ const CardStyled = styled.article`
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+	}
+	@keyframes shadowCardFrames {
+		0% {
+			box-shadow: ${({ theme, darkMode }) =>
+				`0px 0px 25px 5px ${
+					darkMode === 'light'
+						? theme.colors.emerald['600']
+						: theme.colors.emerald['200']
+				}`};
+		}
+
+		50% {
+			box-shadow: ${({ theme, darkMode }) =>
+				`0px 0px 0px 0px ${
+					darkMode === 'light'
+						? theme.colors.emerald['600']
+						: theme.colors.emerald['200']
+				}`};
+		}
+
+		100% {
+			box-shadow: ${({ theme, darkMode }) =>
+				`0px 0px 25px 5px ${
+					darkMode === 'light'
+						? theme.colors.emerald['600']
+						: theme.colors.emerald['200']
+				}`};
+		}
 	}
 `;
 
@@ -180,13 +211,13 @@ const InfoHeaderStyled = styled.header`
 const InfoBodyStyled = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 0.5rem;
 	align-items: center;
 `;
 
 const InfoTextStyled = styled.span`
-	color: ${(props) => `${props.theme.colors.slate['50']}`};
-	font-size: ${(props) => `${props.theme.fontSize.lg}`};
+	color: ${({ theme }) => `${theme.colors.slate['50']}`};
+	font-size: ${({ theme }) => `${theme.fontSize.lg}`};
 	font-weight: medium;
 	text-align: center;
 `;

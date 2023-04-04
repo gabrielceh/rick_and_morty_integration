@@ -27,6 +27,7 @@ const GridCards = styled.section`
 	min-height: 50vh;
 	margin: 0 auto;
 	padding: 1rem;
+	margin-top: 200px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	justify-content: center;

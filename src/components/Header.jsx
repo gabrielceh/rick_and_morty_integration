@@ -35,16 +35,15 @@ const HeaderStyled = styled.header`
 	z-index: 10;
 	width: 100%;
 	padding: 1rem 0;
-	background: ${({ theme }) =>
-		`radial-gradient(circle at left, ${theme.colors.yellow['100']}cc, ${theme.colors.emerald['500']}cc)`};
 	/* background: ${({ theme }) =>
-		`radial-gradient(circle at left, ${theme.colors.pink['200']}aa, ${theme.colors.purple['400']}aa)`}; */
+		`radial-gradient(circle at left, ${theme.colors.yellow['100']}cc, ${theme.colors.emerald['500']}cc)`}; */
+	background: ${({ theme }) => `${theme.body}dd`};
 	backdrop-filter: blur(5px);
-	border-bottom: 1px solid #b2dae4;
+	border-bottom: ${({ theme }) => `1px solid ${theme.colors.emerald['200']}`};
 `;
 
 const HeaderContainerStyled = styled.div`
-	width: 85%;
+	width: 90%;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
