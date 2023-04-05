@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import randomImg from '../assets/images/random.svg';
+import { useNavigate } from 'react-router-dom';
 
 function BtnGetRandom({ onSearch, characters = [] }) {
 	// https://rickandmortyapi.com/documentation/#get-all-characters primer y ultimo id
+	const navigate = useNavigate();
 	const generateRandom = () => Math.floor(Math.random() * (826 - 1 + 1) + 1);
 
 	const handleClick = () => {
@@ -16,6 +18,7 @@ function BtnGetRandom({ onSearch, characters = [] }) {
 				'El id generado ya esta en la lista, por favor generar otro'
 			);
 		}
+		navigate('/');
 	};
 
 	return (

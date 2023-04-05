@@ -34,7 +34,7 @@ const HeaderStyled = styled.header`
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: 5;
 	width: 100%;
 	padding: 1rem 0;
 	/* background: ${({ theme }) =>
