@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 
-export default function Card(props) {
-	const { name, status, species, gender, origin, image, onClose } = props;
+export default function Card({
+	name,
+	status,
+	species,
+	gender,
+	origin,
+	image,
+	onClose,
+}) {
 	const statusIcon = {
 		Alive: '🟢',
 		Dead: '🔴',

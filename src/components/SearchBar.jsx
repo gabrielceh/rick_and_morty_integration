@@ -11,36 +11,37 @@ function SearchBar({ onSearch }) {
 
 	const navigate = useNavigate();
 
-	const handleChange = (e) => {
-		setId(e.target.value);
+	const handleChange = (event) => {
+		setId(event.target.value);
 	};
 
-	const handleClick = (e) => {
+	const handleClick = (event) => {
 		onSearch(id);
 		setId('');
 		closeModal();
-		navigate('/');
+		navigate('/home');
 	};
 
 	return (
-		<SearchContainerStyled>
-			<BtnOpenModal onClick={openModal}>🔍</BtnOpenModal>
-			{isOpen && (
-				<SearchModalContainer>
-					<SearchModalBoxStyled>
-						<BtnCloseModalStyled onClick={closeModal}>ESC</BtnCloseModalStyled>
-						<SearchInputStyled
-							type='search'
-							value={id}
-							onChange={handleChange}
-							mode={darkMode}
-							placeholder='Example: 356'
-						/>
-						<ButtonSearchStyled onClick={handleClick}>Add</ButtonSearchStyled>
-					</SearchModalBoxStyled>
-				</SearchModalContainer>
-			)}
-		</SearchContainerStyled>
+		<>
+			<SearchContainerStyled>
+				<BtnOpenModal onClick={openModal}>🔍</BtnOpenModal>
+			</SearchContainerStyled>
+			{/* MODAL */}
+			<SearchModalContainer className={isOpen ? 'open' : ''}>
+				<SearchModalBoxStyled>
+					<BtnCloseModalStyled onClick={closeModal}>ESC</BtnCloseModalStyled>
+					<SearchInputStyled
+						type='search'
+						value={id}
+						onChange={handleChange}
+						mode={darkMode}
+						placeholder='Example: 356'
+					/>
+					<ButtonSearchStyled onClick={handleClick}>Add</ButtonSearchStyled>
+				</SearchModalBoxStyled>
+			</SearchModalContainer>
+		</>
 	);
 }
 
@@ -71,18 +72,25 @@ const BtnOpenModal = styled.button`
 `;
 
 const SearchModalContainer = styled.section`
-	position: absolute;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	min-height: 100vh;
-	background-color: ${({ theme }) => `${theme.colors.slate['800']}55`};
-	backdrop-filter: blur(5px);
+	position: fixed;
+	z-index: 15;
+	opacity: 0;
+	visibility: hidden;
+	background-color: ${({ theme }) => `${theme.colors.slate['900']}dd`};
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
+
+	&.open {
+		opacity: 1;
+		visibility: visible;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		min-height: 100vh;
+		width: 100%;
+	}
 `;
 
 const SearchModalBoxStyled = styled.article`

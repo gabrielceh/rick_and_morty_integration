@@ -3,10 +3,13 @@ import styled from 'styled-components';
 
 function NavHeader() {
 	return (
-		<NavLinksContainerStyled>
-			<NavLinkStyled to='/'>Home</NavLinkStyled>
-			<NavLinkStyled to='/about'>About</NavLinkStyled>
-		</NavLinksContainerStyled>
+		<>
+			<NavLinksContainerStyled>
+				<NavLinkStyled to='/home'>Home</NavLinkStyled>
+				<NavLinkStyled to='/about'>About</NavLinkStyled>
+				<NavLinkStyled to='/whaterver'>Error</NavLinkStyled>
+			</NavLinksContainerStyled>
+		</>
 	);
 }
 

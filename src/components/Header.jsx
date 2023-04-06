@@ -5,26 +5,34 @@ import BtnDarkMode from './BtnDarkMode';
 import logoRickMorty from '../assets/images/Rick_and_Morty_Logop.png';
 import BtnGetRandom from './BtnGetRandom';
 import NavHeader from './NavHeader';
+import { useLocation } from 'react-router-dom';
 
-function Header({ onSearch, characters }) {
+function Header({ onSearch, characters, logout }) {
+	const location = useLocation();
+
 	return (
-		<HeaderStyled>
-			<HeaderContainerStyled>
-				<LogoStyled
-					src={logoRickMorty}
-					alt='Rick and Morty Logo'
-				/>
-				<ContainerRigthSideStyled>
-					<NavHeader />
-					<SearchBar onSearch={onSearch} />
-					<BtnGetRandom
-						onSearch={onSearch}
-						characters={characters}
-					/>
-					<BtnDarkMode />
-				</ContainerRigthSideStyled>
-			</HeaderContainerStyled>
-		</HeaderStyled>
+		<>
+			{location.pathname !== '/' && (
+				<HeaderStyled>
+					<HeaderContainerStyled>
+						<LogoStyled
+							src={logoRickMorty}
+							alt='Rick and Morty Logo'
+						/>
+						<ContainerRigthSideStyled>
+							<NavHeader />
+							<SearchBar onSearch={onSearch} />
+							<BtnGetRandom
+								onSearch={onSearch}
+								characters={characters}
+							/>
+							<BtnDarkMode />
+							<button onClick={logout}>Logout</button>
+						</ContainerRigthSideStyled>
+					</HeaderContainerStyled>
+				</HeaderStyled>
+			)}
+		</>
 	);
 }
 

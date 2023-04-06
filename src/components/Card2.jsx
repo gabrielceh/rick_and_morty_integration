@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { DarkModeContext } from '../context/DarkModeContext';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';

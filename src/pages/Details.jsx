@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import ErrorMessage from '../components/ErrorMessage';
+import { urls } from '../helpers/URL';
 
 function Details() {
 	const [character, setCharacter] = useState(null);
@@ -15,8 +16,9 @@ function Details() {
 	const { id } = useParams();
 
 	useEffect(() => {
-		axios(`https://rickandmortyapi.com/api/character/${id}`)
-			.then(({ data }) => {
+		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
+			.then((response) => response.data)
+			.then((data) => {
 				setCharacter(data);
 			})
 			.catch((error) => {
