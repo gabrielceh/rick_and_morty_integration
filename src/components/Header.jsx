@@ -1,14 +1,30 @@
-import styled from 'styled-components';
-
 import SearchBar from './SearchBar';
-import BtnDarkMode from './BtnDarkMode';
+
 import logoRickMorty from '../assets/images/Rick_and_Morty_Logop.png';
+import { useLocation } from 'react-router-dom';
+import { useModal } from '../hooks/useModal';
+import { BtnOutlineStyled } from '../styled/BtnStyles.style';
 import BtnGetRandom from './BtnGetRandom';
 import NavHeader from './NavHeader';
-import { useLocation } from 'react-router-dom';
+import {
+	BtnCloseModalStyled,
+	BtnHamburguerStyled,
+	ButtonsConatinerNavStyled,
+	ContainerMenuDesktopStyled,
+	ContainerMenuMobileStyled,
+	HeaderContainerStyled,
+	HeaderStyled,
+	LogoStyled,
+} from '../styled/Header.styled';
 
 function Header({ onSearch, characters, logout }) {
 	const location = useLocation();
+	const [isOpenMenu, openModalMenu, closeModalMenu] = useModal();
+
+	const handleLogout = () => {
+		logout();
+		closeModalMenu();
+	};
 
 	return (
 		<>
@@ -19,16 +35,58 @@ function Header({ onSearch, characters, logout }) {
 							src={logoRickMorty}
 							alt='Rick and Morty Logo'
 						/>
-						<ContainerRigthSideStyled>
-							<NavHeader />
-							<SearchBar onSearch={onSearch} />
+						{/* Menu desktop */}
+						<ContainerMenuDesktopStyled>
+							<NavHeader onModalClose={closeModalMenu} />
+							<SearchBar
+								onSearch={onSearch}
+								onModalClose={closeModalMenu}
+							/>
 							<BtnGetRandom
 								onSearch={onSearch}
-								characters={characters}
+								onModalClose={closeModalMenu}
 							/>
-							<BtnDarkMode />
-							<button onClick={logout}>Logout</button>
-						</ContainerRigthSideStyled>
+
+							<BtnOutlineStyled
+								color='yellow'
+								onClick={logout}
+								width='5rem'>
+								Logout
+							</BtnOutlineStyled>
+						</ContainerMenuDesktopStyled>
+
+						<BtnHamburguerStyled onClick={openModalMenu}>
+							Menu
+						</BtnHamburguerStyled>
+						{/* Menu mobile */}
+						{isOpenMenu && (
+							<ContainerMenuMobileStyled className='active'>
+								<BtnCloseModalStyled
+									color='slate'
+									onClick={closeModalMenu}>
+									✖️
+								</BtnCloseModalStyled>
+								<NavHeader onModalClose={closeModalMenu} />
+								<ButtonsConatinerNavStyled>
+									<SearchBar
+										onSearch={onSearch}
+										onModalClose={closeModalMenu}
+									/>
+									<BtnGetRandom
+										onSearch={onSearch}
+										characters={characters}
+										onModalClose={closeModalMenu}
+									/>
+
+									<BtnOutlineStyled
+										color='yellow'
+										onClick={handleLogout}
+										width='5rem'>
+										Logout
+									</BtnOutlineStyled>
+								</ButtonsConatinerNavStyled>
+							</ContainerMenuMobileStyled>
+						)}
 					</HeaderContainerStyled>
 				</HeaderStyled>
 			)}
@@ -37,42 +95,3 @@ function Header({ onSearch, characters, logout }) {
 }
 
 export default Header;
-
-const HeaderStyled = styled.header`
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 5;
-	width: 100%;
-	padding: 1rem 0;
-	/* background: ${({ theme }) =>
-		`radial-gradient(circle at left, ${theme.colors.yellow['100']}cc, ${theme.colors.emerald['500']}cc)`}; */
-	background: ${({ theme }) => `${theme.body}dd`};
-	backdrop-filter: blur(5px);
-	border-bottom: ${({ theme }) => `1px solid ${theme.colors.emerald['200']}`};
-	transition: background 0.5s ease-in;
-`;
-
-const HeaderContainerStyled = styled.div`
-	width: 90%;
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 1rem;
-`;
-
-const LogoStyled = styled.img`
-	max-width: 150px;
-	filter: ${({ theme }) =>
-		`drop-shadow( 2px 2px 0px ${theme.colors.slate['800']})`};
-`;
-
-const ContainerRigthSideStyled = styled.div`
-	display: flex;
-	gap: 1rem;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-evenly;
-`;

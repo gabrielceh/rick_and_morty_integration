@@ -28,4 +28,10 @@ const FooterContainerStyled = styled.div`
 	/* justify-content:center: */
 	align-items: center;
 	gap: 1rem;
+
+	& h4::selection,
+	& span::selection {
+		background-color: ${({ theme }) => theme.colors.emerald['500']};
+		color: ${({ theme }) => theme.colors.yellow['100']};
+	}
 `;

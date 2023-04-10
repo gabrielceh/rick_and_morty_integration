@@ -19,6 +19,8 @@ import About from './pages/About';
 import Details from './pages/Details';
 import Page404 from './pages/Page404';
 import Home from './pages/Home';
+import Favorites from './pages/Favorites';
+import BtnDarkMode from './components/BtnDarkMode';
 
 function App() {
 	const [characters, setCharacters] = useState([]);
@@ -50,8 +52,7 @@ function App() {
 			});
 	};
 
-	const onClose = (event, id) => {
-		event.preventDefault();
+	const onClose = (id) => {
 		let newId = id;
 		const characterFilter = characters.filter(
 			(character) => character.id !== newId
@@ -108,6 +109,10 @@ function App() {
 							path='/detail/:id'
 							element={<Details />}
 						/>
+						<Route
+							path='/favorites'
+							element={<Favorites onClose={onClose} />}
+						/>
 
 						<Route
 							path='*'
@@ -115,6 +120,7 @@ function App() {
 						/>
 					</Routes>
 				</MainContainerStyled>
+				<BtnDarkMode />
 				<Footer />
 			</AppContainer>
 		</ThemeProvider>
@@ -150,7 +156,11 @@ const MainContainerStyled = styled.main`
 	margin-top: 175px;
 	width: 100%;
 
-	@media ${({ theme }) => theme.screenSize.laptop} {
-		width: 90%;
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		& {
+			margin: 0 auto;
+			margin-top: 175px;
+			width: 90%;
+		}
 	} ;
 `;

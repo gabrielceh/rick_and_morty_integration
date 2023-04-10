@@ -1,13 +1,34 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-function NavHeader() {
+function NavHeader({ onModalClose }) {
+	const handleClick = () => {
+		onModalClose();
+	};
+
 	return (
 		<>
 			<NavLinksContainerStyled>
-				<NavLinkStyled to='/home'>Home</NavLinkStyled>
-				<NavLinkStyled to='/about'>About</NavLinkStyled>
-				<NavLinkStyled to='/whaterver'>Error</NavLinkStyled>
+				<NavLinkStyled
+					to='/home'
+					onClick={handleClick}>
+					Home
+				</NavLinkStyled>
+				<NavLinkStyled
+					to='/about'
+					onClick={handleClick}>
+					About
+				</NavLinkStyled>
+				<NavLinkStyled
+					to='/favorites'
+					onClick={handleClick}>
+					Favorites
+				</NavLinkStyled>
+				<NavLinkStyled
+					to='/whaterver'
+					onClick={handleClick}>
+					Error
+				</NavLinkStyled>
 			</NavLinksContainerStyled>
 		</>
 	);
@@ -17,14 +38,21 @@ export default NavHeader;
 
 const NavLinksContainerStyled = styled.nav`
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
-	gap: 1rem;
+	align-items: start;
+	gap: 3rem;
+
+	@media (${({ theme }) => theme.screenSize.laptop}) {
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+	}
 `;
 
 const NavLinkStyled = styled(NavLink)`
 	color: ${({ theme }) => theme.colors.emerald['500']};
-	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-size: ${({ theme }) => theme.fontSize.xl_4};
 	font-family: 'ChakraPetch';
 	text-decoration: none;
 	font-weight: bold;
@@ -51,5 +79,9 @@ const NavLinkStyled = styled(NavLink)`
 
 	&:active {
 		scale: 0.9;
+	}
+
+	@media (${({ theme }) => theme.screenSize.laptop}) {
+		font-size: ${({ theme }) => theme.fontSize.lg};
 	}
 `;

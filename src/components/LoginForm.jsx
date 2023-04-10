@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { validateLoginForm } from '../helpers/validation';
 
 const initialState = {
-	email: '',
-	password: '',
+	email: 'gabriel@gmail.com',
+	password: '123abcd',
 };
 
 function LoginForm({ login }) {
@@ -110,6 +110,7 @@ const InputFormStyled = styled.input`
 	border-radius: 10px;
 	border: ${({ theme }) => `1px solid ${theme.colors.gray['300']}`};
 	outline: none;
+	transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 
 	&.error {
 		border: ${({ theme }) => `2px solid ${theme.colors.red['400']}`};

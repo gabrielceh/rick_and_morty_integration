@@ -5,13 +5,18 @@ import App from './App';
 import DarkModeProvider from './context/DarkModeContext';
 import { BrowserRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	//   <React.StrictMode>
-	<DarkModeProvider>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
-	</DarkModeProvider>
+	<Provider store={store}>
+		<DarkModeProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</DarkModeProvider>
+	</Provider>
 	// </React.StrictMode>
 );

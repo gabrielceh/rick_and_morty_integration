@@ -29,14 +29,19 @@ const breatheAnimation = keyframes`
 `;
 
 const BtnDarkStyled = styled.button`
+	position: fixed;
+	bottom: 5%;
+	right: 1rem;
+	background-color: ${({ theme }) => theme.colors.emerald['400']};
+	padding: 0.5rem;
 	cursor: pointer;
-	background-color: transparent;
 	border: none;
 	font-size: 2rem;
-	padding: 0;
-	line-height: 0;
+	border-radius: 50%;
 
 	&:hover {
+		background-color: ${({ theme }) => theme.colors.emerald['500']};
+
 		animation-name: ${breatheAnimation};
 		animation-duration: 1s;
 		animation-iteration-count: infinite;

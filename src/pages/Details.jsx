@@ -70,12 +70,21 @@ const DetailsContainerStyled = styled.div`
 	justify-content: center;
 	align-items: center;
 
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		& {
+			margin-bottom: 1.5rem;
+			flex-direction: column;
+			gap: 0;
+			max-width: 1080px;
+			max-height: 1080px;
+		}
+	}
+
 	@media ${({ theme }) => theme.screenSize.laptop} {
-		margin-bottom: 1.5rem;
-		flex-direction: row;
-		gap: 0;
-		max-width: 1080px;
-		max-height: 1080px;
+		& {
+			flex-direction: row;
+			gap: 0;
+		}
 	}
 `;
 
@@ -91,16 +100,40 @@ const DetailsSectionStyled = styled.section`
 
 	& img {
 		width: 70%;
+		min-width: 350px;
 		height: auto;
 		border-radius: 50%;
 		box-shadow: ${({ theme }) =>
 			`0px 0px 20px 2px ${theme.colors.yellow['500']}89`};
+
+		animation-name: imgRotate;
+		animation-duration: 0.75s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
 	}
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
-		width: 50%;
+		& {
+			width: 50%;
+		}
 		& img {
 			width: 90%;
+		}
+	}
+
+	@keyframes imgRotate {
+		0% {
+			scale: 0;
+			rotate: 0deg;
+		}
+
+		90% {
+			scale: 1.2;
+			rotate: 375deg;
+		}
+		100% {
+			scale: 1;
+			rotate: 360deg;
 		}
 	}
 `;
@@ -119,6 +152,11 @@ const DetailsInfoSectionStyled = styled.section`
 	justify-content: center;
 	gap: 1.5rem;
 
+	animation-name: neon;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+
 	& h2 {
 		color: ${({ theme }) => theme.colors.yellow['50']};
 		font-size: ${({ theme }) => theme.fontSize.xl_4};
@@ -126,14 +164,16 @@ const DetailsInfoSectionStyled = styled.section`
 	}
 
 	& p {
-		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: 600;
 		text-align: center;
 	}
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
-		width: 100%;
-		min-height: 100%;
+		& {
+			/* width: 100%; */
+			min-height: 100%;
+		}
 
 		& h2 {
 			font-size: ${({ theme }) => theme.fontSize.xl_5};
@@ -144,11 +184,43 @@ const DetailsInfoSectionStyled = styled.section`
 			font-weight: 600;
 			text-align: center;
 		}
+
+		& h2::selection,
+		& p::selection {
+			background-color: ${({ theme }) => theme.colors.yellow['300']};
+			color: ${({ theme }) => theme.colors.emerald['500']};
+		}
 	}
 
 	@media ${({ theme }) => theme.screenSize.laptop} {
 		width: 50%;
 		min-height: 100%;
+	}
+
+	@keyframes neon {
+		0% {
+			box-shadow: ${({ theme }) =>
+				`0px 0px 20px 2px ${theme.colors.yellow['500']}89`};
+			translate: 0 0px;
+		}
+
+		25% {
+			box-shadow: ${({ theme }) =>
+				`0px 0px 15px 2px ${theme.colors.yellow['500']}89`};
+		}
+		50% {
+			translate: 0 -10px;
+		}
+		75% {
+			box-shadow: ${({ theme }) =>
+				`0px 0px 0px 0px ${theme.colors.yellow['500']}89`};
+		}
+
+		100% {
+			box-shadow: ${({ theme }) =>
+				`0px 0px 20px 2px ${theme.colors.emerald['500']}89`};
+			translate: 0 -0px;
+		}
 	}
 `;
 

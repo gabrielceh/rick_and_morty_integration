@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { DarkModeContext } from '../context/DarkModeContext';
 import { useModal } from '../hooks/useModal';
+import { BtnOutlineStyled } from '../styled/BtnStyles.style';
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, onModalClose }) {
 	const [id, setId] = useState('');
 	const { darkMode } = useContext(DarkModeContext);
 	const [isOpen, openModal, closeModal] = useModal();
@@ -19,14 +20,19 @@ function SearchBar({ onSearch }) {
 		onSearch(id);
 		setId('');
 		closeModal();
+		onModalClose();
 		navigate('/home');
 	};
 
 	return (
 		<>
-			<SearchContainerStyled>
-				<BtnOpenModal onClick={openModal}>🔍</BtnOpenModal>
-			</SearchContainerStyled>
+			<BtnOutlineStyled
+				color='yellow'
+				width='80px'
+				onClick={openModal}>
+				Search
+			</BtnOutlineStyled>
+
 			{/* MODAL */}
 			<SearchModalContainer className={isOpen ? 'open' : ''}>
 				<SearchModalBoxStyled>
@@ -38,7 +44,12 @@ function SearchBar({ onSearch }) {
 						mode={darkMode}
 						placeholder='Example: 356'
 					/>
-					<ButtonSearchStyled onClick={handleClick}>Add</ButtonSearchStyled>
+					<ButtonSearchStyled
+						onClick={handleClick}
+						color='yellow'
+						width='100%'>
+						Add
+					</ButtonSearchStyled>
 				</SearchModalBoxStyled>
 			</SearchModalContainer>
 		</>
@@ -46,30 +57,6 @@ function SearchBar({ onSearch }) {
 }
 
 export default SearchBar;
-
-const SearchContainerStyled = styled.div`
-	display: flex;
-	gap: 0.7rem;
-	flex-wrap: wrap;
-`;
-
-const BtnOpenModal = styled.button`
-	cursor: pointer;
-	padding: 0.4rem 0.7rem;
-	background: none;
-	border: ${({ theme }) => `2px solid ${theme.colors.yellow['400']}`};
-	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.lg};
-	transition: scale 0.1s ease-in-out, border 0.1s ease-in-out;
-
-	&:hover {
-		scale: 1.1;
-		border: ${({ theme }) => `2px solid ${theme.colors.yellow['500']}`};
-	}
-	&:active {
-		scale: 0.8;
-	}
-`;
 
 const SearchModalContainer = styled.section`
 	position: fixed;

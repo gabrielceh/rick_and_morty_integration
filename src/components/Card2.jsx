@@ -1,19 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+// import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFav, removeFav } from '../redux/actions';
+
 import { DarkModeContext } from '../context/DarkModeContext';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export default function Card2({
-	id,
-	name,
-	status,
-	species,
-	gender,
-	origin,
-	image,
-	onClose,
-}) {
+function Card2({ id, name, status, species, gender, origin, image, onClose }) {
+	const [isFav, setIsFav] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
+
+	const myFavorites = useSelector((state) => state.myFavorites);
+	const dispatch = useDispatch();
 
 	const statusIcon = {
 		Alive: '🟢',
@@ -21,8 +20,41 @@ export default function Card2({
 		unknown: '🔘',
 	};
 
+	useEffect(() => {
+		myFavorites.forEach((fav) => {
+			if (fav.id === id) {
+				setIsFav(true);
+				return;
+			}
+		});
+	}, []);
+
 	const handleClose = (event) => {
-		onClose(event, id);
+		event.preventDefault();
+		console.log('close');
+		onClose(id);
+		dispatch(removeFav(id));
+	};
+
+	const handleFavorite = (event) => {
+		event.preventDefault();
+		if (isFav) {
+			setIsFav(false);
+			dispatch(removeFav(id));
+		} else {
+			setIsFav(true);
+			dispatch(
+				addFav({
+					id,
+					name,
+					status,
+					species,
+					gender,
+					origin,
+					image,
+				})
+			);
+		}
 	};
 
 	return (
@@ -43,15 +75,37 @@ export default function Card2({
 							<InfoTextStyled>{gender}</InfoTextStyled>
 							<InfoTextStyled>Location: {origin.name}</InfoTextStyled>
 						</InfoBodyStyled>
-						<ButtonCloseCardStyled onClick={handleClose}>
-							✖️
-						</ButtonCloseCardStyled>
+						<div>
+							<ButtonCloseCardStyled onClick={handleClose}>
+								✖️
+							</ButtonCloseCardStyled>
+							<ButtonCloseCardStyled onClick={handleFavorite}>
+								{isFav ? '💚' : '🤍'}
+							</ButtonCloseCardStyled>
+						</div>
 					</InfoContainerStyled>
 				</CarsContainerStyled>
 			</CardStyled>
 		</Link>
 	);
 }
+
+// const mapStateToProps = (state) => {
+// 	return {
+// 		myFavorites: state.myFavorites,
+// 	};
+// };
+
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		addFav: () => dispatch(addFav()),
+// 		removeFav: () => dispatch(removeFav()),
+// 	};
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Card2);
+
+export default Card2;
 
 const moveFrames = keyframes`
 0%{

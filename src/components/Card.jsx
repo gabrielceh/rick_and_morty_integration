@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
-export default function Card({
+import styled from 'styled-components';
+import { addFav, removeFav } from '../redux/actions';
+
+function Card({
 	name,
 	status,
 	species,
@@ -8,11 +12,20 @@ export default function Card({
 	origin,
 	image,
 	onClose,
+	addFav,
+	removeFav,
+	myFavorites,
 }) {
+	const [isFav, setisFav] = useState(false);
+
 	const statusIcon = {
 		Alive: '🟢',
 		Dead: '🔴',
 	};
+
+	useEffect(() => {
+		console.log(myFavorites);
+	}, []);
 
 	return (
 		<CardStyled>
@@ -37,6 +50,21 @@ export default function Card({
 		</CardStyled>
 	);
 }
+
+const mapStateToProps = (state) => {
+	return {
+		myFavorites: state.myFavorites,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addFav: () => dispatch(addFav()),
+		removeFav: () => dispatch(removeFav()),
+	};
+};
+
+export default connect(mapStateToProps)(Card);
 
 const CardStyled = styled.figure`
 	position: relative;

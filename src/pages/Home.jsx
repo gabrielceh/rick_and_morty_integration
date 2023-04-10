@@ -22,4 +22,16 @@ const HomeContainerStyled = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 4rem;
+
+	& img {
+		max-width: 300px;
+		min-width: 200px;
+	}
+
+	@media (${({ theme }) => theme.screenSize.laptop}) {
+		& img {
+			max-width: 500px;
+			min-width: 350px;
+		}
+	}
 `;
