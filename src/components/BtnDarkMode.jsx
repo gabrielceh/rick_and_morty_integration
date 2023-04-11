@@ -30,6 +30,7 @@ const breatheAnimation = keyframes`
 
 const BtnDarkStyled = styled.button`
 	position: fixed;
+	z-index: 5;
 	bottom: 5%;
 	right: 1rem;
 	background-color: ${({ theme }) => theme.colors.emerald['400']};

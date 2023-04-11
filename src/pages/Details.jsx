@@ -6,9 +6,13 @@ import styled from 'styled-components';
 
 import ErrorMessage from '../components/ErrorMessage';
 import { urls } from '../helpers/URL';
+import { ContainerStyled } from '../styled/container.styled';
+import TitleSection from '../components/TitleSection';
+import SkeletonDetails from '../components/SkeletonDetails';
 
 function Details() {
 	const [character, setCharacter] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const [errorRes, setErrorRes] = useState({
 		res: false,
 		message: '',
@@ -16,6 +20,7 @@ function Details() {
 	const { id } = useParams();
 
 	useEffect(() => {
+		setLoading(true);
 		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
 			.then((response) => response.data)
 			.then((data) => {
@@ -26,12 +31,15 @@ function Details() {
 					res: true,
 					message: `Can't found character with id ${id}`,
 				});
-			});
+			})
+			.finally(() => setLoading(false));
 	}, [id]);
 
 	return (
-		<>
-			{character ? (
+		<ContainerStyled>
+			<TitleSection title='Details' />
+			{loading && <SkeletonDetails />}
+			{character && !loading ? (
 				<DetailsContainerStyled>
 					<DetailsSectionStyled>
 						<img
@@ -49,15 +57,15 @@ function Details() {
 						<p>Specie: {character?.species}</p>
 					</DetailsInfoSectionStyled>
 				</DetailsContainerStyled>
-			) : errorRes.res ? (
-				<ErrorMessage
-					message={errorRes.message}
-					size='xl_3'
-				/>
 			) : (
-				<p>Loading...</p>
+				errorRes.res && (
+					<ErrorMessage
+						message={errorRes.message}
+						size='xl_3'
+					/>
+				)
 			)}
-		</>
+		</ContainerStyled>
 	);
 }
 
@@ -144,8 +152,11 @@ const DetailsInfoSectionStyled = styled.section`
 	height: auto;
 	padding: 3rem 1rem;
 	overflow: auto;
-	background-color: ${({ theme }) => theme.colors.emerald['300']};
-	color: ${({ theme }) => theme.colors.slate['800']};
+	background: ${({ theme }) => theme.colors.emerald['300']};
+	background: ${({ theme }) =>
+		`linear-gradient(45deg, ${theme.colors.emerald['300']} 0%, ${theme.colors.emerald['400']} 0%, ${theme.colors.emerald['500']} 50%, ${theme.colors.emerald['600']} 100%)`};
+	background-size: 200% 100%;
+	color: ${({ theme }) => theme.colors.yellow['50']};
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -153,7 +164,7 @@ const DetailsInfoSectionStyled = styled.section`
 	gap: 1.5rem;
 
 	animation-name: neon;
-	animation-duration: 2s;
+	animation-duration: 3s;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 
@@ -199,27 +210,18 @@ const DetailsInfoSectionStyled = styled.section`
 
 	@keyframes neon {
 		0% {
-			box-shadow: ${({ theme }) =>
-				`0px 0px 20px 2px ${theme.colors.yellow['500']}89`};
 			translate: 0 0px;
+			background-position: 0% 50%;
 		}
 
-		25% {
-			box-shadow: ${({ theme }) =>
-				`0px 0px 15px 2px ${theme.colors.yellow['500']}89`};
-		}
 		50% {
 			translate: 0 -10px;
-		}
-		75% {
-			box-shadow: ${({ theme }) =>
-				`0px 0px 0px 0px ${theme.colors.yellow['500']}89`};
+			background-position: 100% 100%;
 		}
 
 		100% {
-			box-shadow: ${({ theme }) =>
-				`0px 0px 20px 2px ${theme.colors.emerald['500']}89`};
 			translate: 0 -0px;
+			background-position: 0% 50%;
 		}
 	}
 `;

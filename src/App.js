@@ -18,13 +18,15 @@ import Footer from './components/Footer';
 import About from './pages/About';
 import Details from './pages/Details';
 import Page404 from './pages/Page404';
-import Home from './pages/Home';
+import LoginPage from './pages/LoginPage';
 import Favorites from './pages/Favorites';
 import BtnDarkMode from './components/BtnDarkMode';
+import HomePage from './pages/HomePage';
 
 function App() {
 	const [characters, setCharacters] = useState([]);
 	const [access, setAccess] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
 	const navigate = useNavigate();
 
@@ -32,13 +34,13 @@ function App() {
 	const PASSWORD = '123abcd';
 
 	useEffect(() => {
-		!access && navigate('/');
+		!access && navigate('/', { replace: true });
 	}, [access]);
 
 	const onSearch = (id) => {
 		let findId = characters.find((character) => character.id === id);
 		if (findId) return window.alert('El Id ya esta en la lista');
-
+		setLoading(true);
 		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
 			.then(({ data }) => {
 				if (data.name) {
@@ -49,7 +51,8 @@ function App() {
 			})
 			.catch((error) => {
 				window.alert(error);
-			});
+			})
+			.finally(() => setLoading(false));
 	};
 
 	const onClose = (id) => {
@@ -64,7 +67,7 @@ function App() {
 	const login = (userData) => {
 		if (userData.email === EMAIL && userData.password === PASSWORD) {
 			setAccess(true);
-			navigate('/home');
+			navigate('/home', { replace: true });
 		} else {
 			window.alert('Email o password no validos');
 		}
@@ -72,7 +75,7 @@ function App() {
 
 	const logout = () => {
 		setAccess(false);
-		navigate('/');
+		navigate('/', { replace: true });
 	};
 
 	return (
@@ -89,16 +92,19 @@ function App() {
 					<Routes>
 						<Route
 							path='/'
-							element={<Home login={login} />}
+							element={<LoginPage login={login} />}
 						/>
 
 						<Route
 							path='/home'
 							element={
-								<Cards
-									characters={characters}
-									onClose={onClose}
-								/>
+								<HomePage>
+									<Cards
+										characters={characters}
+										onClose={onClose}
+										loading={loading}
+									/>
+								</HomePage>
 							}
 						/>
 						<Route
@@ -137,10 +143,10 @@ const BackgroundBody = styled.div`
 	right: -30px;
 	z-index: -1;
 	min-height: 100vh;
-	background-image: url(${waveImage});
+	/* background-image: url(${waveImage});
 	background-size: auto 100%;
 	background-repeat: no-repeat;
-	background-position: 10% 200px;
+	background-position: 10% 200px; */
 	filter: blur(10px) opacity(0.35);
 `;
 
@@ -153,13 +159,13 @@ const AppContainer = styled.div`
 `;
 
 const MainContainerStyled = styled.main`
-	margin-top: 175px;
+	margin-top: 120px;
 	width: 100%;
 
-	@media ${({ theme }) => theme.screenSize.tablet} {
+	@media ${({ theme }) => theme.screenSize.laptop} {
 		& {
 			margin: 0 auto;
-			margin-top: 175px;
+			margin-top: 120px;
 			width: 90%;
 		}
 	} ;

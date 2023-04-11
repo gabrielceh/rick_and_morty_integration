@@ -7,22 +7,18 @@ export const HeaderStyled = styled.header`
 	z-index: 5;
 	width: 100%;
 	padding: 1rem 0;
-	/* background: ${({ theme }) =>
-		`radial-gradient(circle at left, ${theme.colors.yellow['100']}cc, ${theme.colors.emerald['500']}cc)`}; */
 	background: ${({ theme }) => `${theme.body}dd`};
 	backdrop-filter: blur(5px);
 	border-bottom: ${({ theme }) => `1px solid ${theme.colors.emerald['200']}`};
 	transition: background 0.5s ease-in;
-`;
 
-export const HeaderContainerStyled = styled.div`
-	width: 90%;
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 1rem;
+	& .header-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
 `;
 
 export const LogoStyled = styled.img`
@@ -31,7 +27,35 @@ export const LogoStyled = styled.img`
 		`drop-shadow( 2px 2px 0px ${theme.colors.slate['800']})`};
 `;
 
+export const ContainerButtonsHeaderStyled = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 1rem;
+
+	@media (${({ theme }) => theme.screenSize.laptop}) {
+		display: none;
+	}
+`;
+
 export const BtnHamburguerStyled = styled.button`
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	transition: scale 0.3s ease-in-out;
+
+	& .svg {
+		stroke: ${({ theme }) => theme.text};
+	}
+
+	&:hover {
+		scale: 1.1;
+	}
+
+	&:hover .svg {
+		stroke: ${({ theme }) => `${theme.text}aa`};
+	}
+
 	@media (${({ theme }) => theme.screenSize.laptop}) {
 		display: none;
 	}
@@ -39,22 +63,29 @@ export const BtnHamburguerStyled = styled.button`
 
 export const ContainerMenuMobileStyled = styled.div`
 	position: fixed;
+	z-index: 10;
 	top: 0;
-	left: 0;
+	left: -1000px;
 	min-height: 100vh;
 	min-width: 100%;
-	background-color: ${({ theme }) => theme.colors.slate['900']};
+	background-color: ${({ theme }) => `${theme.colors.slate['900']}ea`};
+	backdrop-filter: blur(5px);
 	visibility: hidden;
 	opacity: 0;
-	display: flex;
-	justify-content: start;
-	flex-direction: column;
-	gap: 5rem;
-	padding: 1rem 2rem;
 
-	transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out, left 0.3s ease-in-out,
+		visible 0.3s ease-in-out;
+
+	& .menu-mobile-container {
+		display: flex;
+		justify-content: start;
+		flex-direction: column;
+		gap: 5rem;
+		padding: 1rem 2rem;
+	}
 
 	&.active {
+		left: 0;
 		visibility: visible;
 		opacity: 1;
 	}

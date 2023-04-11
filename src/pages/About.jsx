@@ -1,7 +1,15 @@
+import TitleSection from '../components/TitleSection';
+import { ContainerStyled } from '../styled/container.styled';
+
 function About() {
 	return (
 		<>
-			<h1>Este es el about</h1>
+			<ContainerStyled>
+				<TitleSection
+					title='About'
+					color='emerald'
+				/>
+			</ContainerStyled>
 		</>
 	);
 }

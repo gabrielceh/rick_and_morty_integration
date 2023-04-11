@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Cards from '../components/Cards';
+import { ContainerStyled } from '../styled/container.styled';
+import TitleSection from '../components/TitleSection';
 
 function Favorites({ onClose }) {
 	const myFavorites = useSelector((state) => state.myFavorites);
@@ -12,13 +14,13 @@ function Favorites({ onClose }) {
 	}, []);
 
 	return (
-		<div>
-			<h1>My favorites</h1>
+		<ContainerStyled>
+			<TitleSection title='My favorites' />
 			<Cards
 				characters={myFavorites}
 				onClose={onClose}
 			/>
-		</div>
+		</ContainerStyled>
 	);
 }
 

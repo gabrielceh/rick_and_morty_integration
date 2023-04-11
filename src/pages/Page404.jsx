@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 import imageError from '../assets/images/rick-morty_error.png';
+import { ContainerStyled } from '../styled/container.styled';
 
 function Page404() {
 	return (
 		<Page404ContainerStyled>
-			<Image404Styled
-				src={imageError}
-				alt='Error 404 rick and morty'
-			/>
-			<h1>404</h1>
-			<p>Oops! That page can’t be found.</p>
+			<ContainerStyled className='page-404-container'>
+				<Image404Styled
+					src={imageError}
+					alt='Error 404 rick and morty'
+				/>
+				<h1>404</h1>
+				<p>Oops! That page can’t be found.</p>
+			</ContainerStyled>
 		</Page404ContainerStyled>
 	);
 }
@@ -17,27 +20,28 @@ function Page404() {
 export default Page404;
 
 const Page404ContainerStyled = styled.div`
-	width: 90%;
 	margin: 0 auto;
 	margin-top: 2rem;
-	padding: 1rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 2rem;
-	height: 50vh;
 
-	& h1,
-	& p {
+	& .page-404-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 2rem;
+		height: 50vh;
+	}
+
+	& .page-404-container h1,
+	& .page-404-container p {
 		text-align: center;
 	}
 
-	& h1 {
+	& .page-404-container h1 {
 		font-size: ${({ theme }) => theme.fontSize.xl_4};
 	}
 
-	& p {
+	& .page-404-container p {
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 `;

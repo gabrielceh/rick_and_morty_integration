@@ -2,21 +2,21 @@ import styled from 'styled-components';
 import LoginForm from '../components/LoginForm';
 import imageHome from '../assets/images/Rick_and_Morty_Logop.png';
 
-function Home({ login }) {
+function LoginPage({ login }) {
 	return (
-		<HomeContainerStyled>
+		<LoginPageContainerStyled>
 			<img
 				src={imageHome}
 				alt='Rick and Morty Logo'
 			/>
 			<LoginForm login={login} />
-		</HomeContainerStyled>
+		</LoginPageContainerStyled>
 	);
 }
 
-export default Home;
+export default LoginPage;
 
-const HomeContainerStyled = styled.div`
+const LoginPageContainerStyled = styled.div`
 	min-height: 70vh;
 	display: flex;
 	flex-direction: column;
