@@ -7,6 +7,7 @@ export const ContainerStyled = styled.div`
 	@media ${({ theme }) => theme.screenSize.laptop} {
 		& {
 			width: 85%;
+			max-width: 1440px;
 		}
 	}
 `;

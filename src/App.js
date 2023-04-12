@@ -8,20 +8,19 @@ import { lightTheme, darkTheme } from './Theme';
 import { DarkModeContext } from './context/DarkModeContext';
 import { GlobalStyles } from './globalStyles';
 
-// import imageBackgroundGradient from './assets/images/fluid-gradient.png';
-import waveImage from './assets/images/wave2.svg';
 import { urls } from './helpers/URL';
 
-import Cards from './components/Cards.jsx';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import About from './pages/About';
-import Details from './pages/Details';
-import Page404 from './pages/Page404';
-import LoginPage from './pages/LoginPage';
-import Favorites from './pages/Favorites';
-import BtnDarkMode from './components/BtnDarkMode';
-import HomePage from './pages/HomePage';
+import Cards from './components/Cards/Cards';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import About from './pages/About/About';
+import Details from './pages/Details/Details';
+import Page404 from './pages/Page404/Page404';
+import LoginPage from './pages/Login/LoginPage';
+import Favorites from './pages/Favorites/Favorites';
+import BtnDarkMode from './components/BtnDarkMode/BtnDarkMode';
+import HomePage from './pages/Home/HomePage';
+import Prueba from './components/Prueba';
 
 function App() {
 	const [characters, setCharacters] = useState([]);
@@ -34,12 +33,14 @@ function App() {
 	const PASSWORD = '123abcd';
 
 	useEffect(() => {
-		!access && navigate('/', { replace: true });
+		// !access && navigate('/', { replace: true });
 	}, [access]);
 
 	const onSearch = (id) => {
 		let findId = characters.find((character) => character.id === id);
-		if (findId) return window.alert('El Id ya esta en la lista');
+		console.log(findId);
+		if (findId !== undefined) return window.alert('El Id ya esta en la lista');
+
 		setLoading(true);
 		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
 			.then(({ data }) => {
@@ -73,20 +74,14 @@ function App() {
 		}
 	};
 
-	const logout = () => {
-		setAccess(false);
-		navigate('/', { replace: true });
-	};
-
 	return (
 		<ThemeProvider theme={darkMode === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyles />
-			<BackgroundBody />
 			<AppContainer>
 				<Header
 					onSearch={onSearch}
 					characters={characters}
-					logout={logout}
+					setAccess={setAccess}
 				/>
 				<MainContainerStyled>
 					<Routes>
@@ -119,6 +114,10 @@ function App() {
 							path='/favorites'
 							element={<Favorites onClose={onClose} />}
 						/>
+						<Route
+							path='/test'
+							element={<Prueba />}
+						/>
 
 						<Route
 							path='*'
@@ -134,21 +133,6 @@ function App() {
 }
 
 export default App;
-
-const BackgroundBody = styled.div`
-	position: fixed;
-	top: -30px;
-	left: -30px;
-	bottom: -50px;
-	right: -30px;
-	z-index: -1;
-	min-height: 100vh;
-	/* background-image: url(${waveImage});
-	background-size: auto 100%;
-	background-repeat: no-repeat;
-	background-position: 10% 200px; */
-	filter: blur(10px) opacity(0.35);
-`;
 
 const AppContainer = styled.div`
 	min-height: 100vh;
@@ -166,7 +150,6 @@ const MainContainerStyled = styled.main`
 		& {
 			margin: 0 auto;
 			margin-top: 120px;
-			width: 90%;
 		}
 	} ;
 `;
