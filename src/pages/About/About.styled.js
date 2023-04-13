@@ -75,7 +75,14 @@ export const ProjectCard = styled.article`
 	display: flex;
 	align-items: center;
 	gap: 3rem;
-	transition: background-color 0.5s ease-in-out;
+	transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
+		translate 0.5s ease-in-out;
+
+	&:hover {
+		background-color: ${({ theme }) => theme.colors.yellow['300']};
+		color: ${({ theme }) => theme.colors.yellow['900']};
+		translate: -10px 0px;
+	}
 `;
 
 export const ImageCard = styled.img`
@@ -93,18 +100,25 @@ export const ProjectCardInfo = styled.div`
 export const SkillsContainer = styled.div`
 	padding: 1rem;
 	background-color: ${({ theme }) => theme.colors.emerald['300']};
-	display: flex;
-	flex-direction: column;
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
 	justify-content: center;
-	align-items: center;
-	gap: 4rem;
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
+		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 4rem;
 	}
 `;
 
 export const SkillFigure = styled.figure`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	& svg {
 		width: 100px;
 		height: 100px;
@@ -113,7 +127,7 @@ export const SkillFigure = styled.figure`
 
 export const SkillCaption = styled.figcaption`
 	display: block;
-	width: 100%;
+	/* width: 100%; */
 	text-align: center;
 	margin-top: 1rem;
 	color: ${({ theme }) => theme.colors.emerald['900']};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { orderFav, filterFav } from '../../redux/actions/actionsFavorites';
@@ -31,6 +31,7 @@ function Favorites({ onClose }) {
 	const handleOrder = (event) => {
 		let order = event.target.value;
 		if (order.trim()) {
+			setAux(!aux);
 			dispatch(orderFav(order));
 		}
 	};

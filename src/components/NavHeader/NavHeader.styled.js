@@ -17,7 +17,7 @@ export const NavLinksContainerStyled = styled.nav`
 
 export const NavLinkStyled = styled(NavLink)`
 	color: ${({ theme }) => theme.colors.emerald['500']};
-	font-size: ${({ theme }) => theme.fontSize.xl_4};
+	font-size: ${({ theme }) => theme.fontSize.xl_2};
 	font-family: 'ChakraPetch';
 	text-decoration: none;
 	font-weight: bold;
@@ -46,6 +46,9 @@ export const NavLinkStyled = styled(NavLink)`
 		scale: 0.9;
 	}
 
+	@media (${({ theme }) => theme.screenSize.tablet}) {
+		font-size: ${({ theme }) => theme.fontSize.xl_4};
+	}
 	@media (${({ theme }) => theme.screenSize.laptop}) {
 		font-size: ${({ theme }) => theme.fontSize.lg};
 	}

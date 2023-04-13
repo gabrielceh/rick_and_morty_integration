@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import {
 	ADD_FAV,
 	REMOVE_FAV,
@@ -7,7 +6,7 @@ import {
 } from '../actions/actionsFavorites';
 
 const initialState = {
-	allCharacters: [],
+	allCharactersFav: [],
 	myFavorites: [],
 };
 
@@ -16,27 +15,28 @@ export const favReducer = (state = initialState, action) => {
 		case ADD_FAV: {
 			return {
 				...state,
-				myFavorites: [action.payload, ...state.allCharacters],
-				allCharacters: [action.payload, ...state.allCharacters],
+				myFavorites: [action.payload, ...state.allCharactersFav],
+				allCharactersFav: [action.payload, ...state.allCharactersFav],
 			};
 		}
 
 		case REMOVE_FAV: {
-			const removed = state.allCharacters.filter(
+			const removed = state.allCharactersFav.filter(
 				(fav) => fav.id !== action.payload
 			);
 			return {
 				...state,
-				allCharacters: [...removed],
+				allCharactersFav: [...removed],
+				myFavorites: [...removed],
 			};
 		}
 
 		case FILTER_FAV: {
-			const copyAllcharFilter = [...state.allCharacters];
+			const copyAllcharFilter = [...state.allCharactersFav];
 			if (action.payload === 'all') {
 				return {
 					...state,
-					myFavorites: [...state.allCharacters],
+					myFavorites: [...state.allCharactersFav],
 				};
 			}
 			const filter = copyAllcharFilter.filter(
@@ -44,27 +44,24 @@ export const favReducer = (state = initialState, action) => {
 			);
 			return {
 				...state,
-				myFavorites: [...filter],
+				myFavorites: filter,
 			};
 		}
 
 		case ORDER_FAV: {
-			const copyAllCharOrder = [...state.allCharacters];
-
-			if (action.payload === 'A') {
-				copyAllCharOrder.sort(function (a, b) {
-					return parseInt(a?.id) - parseInt(b?.id);
-				});
-			} else if (action.payload === 'D') {
-				copyAllCharOrder.sort(function (a, b) {
-					return parseInt(b?.id) - parseInt(a?.id);
-				});
-			} else {
+			const copyAllCharOrder = [...state.allCharactersFav];
+			if (action.payload !== 'A' && action.payload !== 'D') {
 				return { ...state };
 			}
+
 			return {
 				...state,
-				myFavorites: [...copyAllCharOrder],
+				myFavorites:
+					action.payload === 'A'
+						? copyAllCharOrder.sort((a, b) => parseInt(a?.id) - parseInt(b?.id))
+						: copyAllCharOrder.sort(
+								(a, b) => parseInt(b?.id) - parseInt(a?.id)
+						  ),
 			};
 		}
 

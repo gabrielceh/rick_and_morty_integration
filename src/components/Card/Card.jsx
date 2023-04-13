@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 // import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from '../../redux/actions/actionsFavorites';
+import { isMobile } from '../../helpers/userDeviceInfo';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { Link } from 'react-router-dom';
@@ -19,16 +20,22 @@ import {
 
 function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 	const [isFav, setIsFav] = useState(false);
+	const [deviceIsMobile, setDeviceIsMobile] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
+
+	useEffect(() => {}, []);
 
 	const statusIcon = {
 		Alive: '🟢',
 		Dead: '🔴',
 		unknown: '🔘',
 	};
+	useEffect(() => {
+		isMobile.any() ? setDeviceIsMobile(true) : setDeviceIsMobile(false);
+	}, []);
 
 	useEffect(() => {
 		myFavorites.forEach((fav) => {
@@ -74,7 +81,7 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 						src={image}
 						alt={name}
 					/>
-					<InfoContainerStyled>
+					<InfoContainerStyled className={deviceIsMobile ? 'mobile' : ''}>
 						<InfoHeaderStyled>
 							<span title={status}>{statusIcon[status]}</span>
 							<h3>{name}</h3>
@@ -88,12 +95,14 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 						<ButtonsContainerStyled>
 							<ButtonCardStyled
 								onClick={handleClose}
-								title='Delete'>
+								title='Delete'
+								className={deviceIsMobile ? 'mobile' : ''}>
 								✖️
 							</ButtonCardStyled>
 							<ButtonCardStyled
 								onClick={handleFavorite}
-								title='Add to favorite'>
+								title='Add to favorite'
+								className={deviceIsMobile ? 'mobile' : ''}>
 								{isFav ? '💚' : '🤍'}
 							</ButtonCardStyled>
 						</ButtonsContainerStyled>

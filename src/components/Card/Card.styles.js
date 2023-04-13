@@ -137,6 +137,13 @@ export const InfoContainerStyled = styled.div`
 		visibility: visible;
 		height: 100%;
 	}
+
+	&.mobile {
+		background-color: ${(props) => `${props.theme.colors.slate['900']}aa`};
+		opacity: 1;
+		visibility: visible;
+		height: 100%;
+	}
 `;
 
 export const InfoHeaderStyled = styled.header`
@@ -185,6 +192,12 @@ export const ButtonCardStyled = styled.button`
 	background-color: ${(props) => `${props.theme.colors.yellow['200']}`};
 	transition: background-color 0.1s ease-in-out, scale 0.1s ease-in-out,
 		translate 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+
+	&.mobile {
+		width: 60px;
+		height: 60px;
+		font-size: ${({ theme }) => theme.fontSize.xl};
+	}
 
 	&:hover {
 		translate: -2px -2px;

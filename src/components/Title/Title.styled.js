@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TitleStyled = styled.h2`
 	text-align: center;
 	color: transparent;
-	font-size: ${({ theme }) => theme.fontSize.xl_5};
+	font-size: ${({ theme }) => theme.fontSize.xl_4};
 	font-weight: 800;
 	letter-spacing: 1px;
 	margin-bottom: 1.5rem;
@@ -25,6 +25,9 @@ export const TitleStyled = styled.h2`
 		background-color: ${({ theme }) => theme.colors.emerald['500']};
 	}
 
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xl_6};
+	}
 	@media ${({ theme }) => theme.screenSize.laptop} {
 		font-size: ${({ theme }) => theme.fontSize.xl_7};
 	}

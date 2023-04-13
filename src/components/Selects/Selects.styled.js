@@ -22,7 +22,7 @@ export const SelectBasicStyled = styled.select`
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	cursor: pointer;
-	height: 3rem;
+	height: 2rem;
 	width: 100%;
 	padding: 0.2rem 0.8rem;
 	border: none;
