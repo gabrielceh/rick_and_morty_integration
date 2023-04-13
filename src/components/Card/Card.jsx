@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import {
 	ButtonCardStyled,
 	ButtonsContainerStyled,
+	CardContainerStyled,
 	CardStyled,
-	CarsContainerStyled,
 	ImgCardStyled,
 	InfoBodyStyled,
 	InfoContainerStyled,
@@ -69,7 +69,7 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 	return (
 		<Link to={`/detail/${id}`}>
 			<CardStyled darkMode={darkMode}>
-				<CarsContainerStyled>
+				<CardContainerStyled>
 					<ImgCardStyled
 						src={image}
 						alt={name}
@@ -98,7 +98,7 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 							</ButtonCardStyled>
 						</ButtonsContainerStyled>
 					</InfoContainerStyled>
-				</CarsContainerStyled>
+				</CardContainerStyled>
 			</CardStyled>
 		</Link>
 	);

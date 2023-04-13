@@ -42,7 +42,7 @@ function Details() {
 
 	return (
 		<ContainerStyled>
-			<TitleSection title='Detalles' />
+			<TitleSection title='Details' />
 			{loading && <SkeletonDetails />}
 			{character && !loading ? (
 				<DetailsContainerStyled>
@@ -54,15 +54,15 @@ function Details() {
 					</DetailsSectionStyled>
 					<DetailsInfoSectionStyled>
 						<h2>
-							{character?.id} -{character?.name}
+							{character?.id} - {character?.name}
 						</h2>
 						<DetailsStatusStyled status={character?.status}>
-							Estado: {character?.status}
+							Status: {character?.status}
 						</DetailsStatusStyled>
 						<p>Especie: {character?.species}</p>
-						<p>Genero: {character?.gender}</p>
-						<p>Origen: {character?.origin.name}</p>
-						<p>Localización: {character?.location.name}</p>
+						<p>Gender: {character?.gender}</p>
+						<p>Origin: {character?.origin.name}</p>
+						<p>Locattion: {character?.location.name}</p>
 					</DetailsInfoSectionStyled>
 				</DetailsContainerStyled>
 			) : (

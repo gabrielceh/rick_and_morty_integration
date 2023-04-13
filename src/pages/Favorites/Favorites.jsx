@@ -49,18 +49,18 @@ function Favorites({ onClose }) {
 
 	return (
 		<ContainerStyled>
-			<TitleSection title='Mis Favoritos' />
+			<TitleSection title='My Favorites' />
 			<SelectSectionStyled>
 				<SelectFavorites
 					options={selectOrder}
 					handleChange={handleOrder}
-					label='Ordenar: '
+					label='Order: '
 					name='favorites-order'
 				/>
 				<SelectFavorites
 					options={selectFilter}
 					handleChange={handleFilter}
-					label='Filtrar: '
+					label='Filter: '
 					name='favorites-filter'
 				/>
 			</SelectSectionStyled>

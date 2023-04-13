@@ -7,12 +7,11 @@ export const SelectContainerStyled = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 0.5rem;
+	gap: 0.2rem;
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
 		& {
-			width: 80%;
-			gap: 1rem;
+			width: 90%;
 			width: 40%;
 		}
 	}
@@ -25,11 +24,11 @@ export const SelectBasicStyled = styled.select`
 	cursor: pointer;
 	height: 3rem;
 	width: 100%;
-	padding: 0.5rem 0.8rem;
+	padding: 0.2rem 0.8rem;
 	border: none;
 	outline: none;
 	font-family: 'ChakraPetch';
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	text-align: center;
 	background-color: ${({ theme }) => theme.body};
 	color: ${({ theme }) => theme.text};
@@ -43,12 +42,12 @@ export const SelectBasicStyled = styled.select`
 	&:focus {
 		box-shadow: ${({ theme }) => `0px 0px 7px ${theme.colors.emerald['400']}`};
 	}
-`;
 
-export const OptionBasicStyled = styled.option`
-	border: none;
-	outline: none;
-	margin-bottom: 1rem;
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		& {
+			font-size: ${({ theme }) => theme.fontSize.base};
+		}
+	}
 `;
 
 export const LabelBasicStyled = styled.label`

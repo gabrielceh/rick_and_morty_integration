@@ -38,3 +38,7 @@ h5,
 h6 {
 	font-family: 'PTMono', 'Courier New', Courier, monospace;
 }
+
+a {
+	text-decoration: none;
+}

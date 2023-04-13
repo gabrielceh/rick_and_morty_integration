@@ -5,6 +5,7 @@ export const SelectSectionStyled = styled.section`
 	top: 83px;
 	z-index: 5;
 	padding: 1rem;
+	padding-bottom: 0.2rem;
 	background-color: ${({ theme }) => theme.body};
 	width: 100%;
 	margin: 0 auto;
@@ -19,7 +20,7 @@ export const SelectSectionStyled = styled.section`
 	@media ${({ theme }) => theme.screenSize.tablet} {
 		& {
 			flex-direction: row;
-			width: 80%;
+			width: 90%;
 		}
 	}
 `;

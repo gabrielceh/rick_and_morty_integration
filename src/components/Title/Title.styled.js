@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const TitleStyled = styled.h2`
 	text-align: center;
 	color: transparent;
-	font-size: ${({ theme }) => theme.fontSize.xl_6};
+	font-size: ${({ theme }) => theme.fontSize.xl_5};
 	font-weight: 800;
 	letter-spacing: 1px;
-	margin-bottom: 3rem;
+	margin-bottom: 1.5rem;
 	background: ${({ theme }) => theme.colors.emerald['400']};
 	background: ${({ theme }) =>
 		`radial-gradient(circle 150px at center, ${theme.colors.emerald['700']} 10%, ${theme.colors.emerald['200']} 50%, ${theme.colors.emerald['500']} 100%)`};

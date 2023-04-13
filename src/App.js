@@ -38,7 +38,6 @@ function App() {
 
 	const onSearch = (id) => {
 		let findId = characters.find((character) => character.id === id);
-		console.log(findId);
 		if (findId !== undefined) return window.alert('El Id ya esta en la lista');
 
 		setLoading(true);

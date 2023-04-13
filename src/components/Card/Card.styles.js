@@ -88,7 +88,7 @@ export const CardStyled = styled.article`
 	}
 `;
 
-export const CarsContainerStyled = styled.div`
+export const CardContainerStyled = styled.div`
 	width: 96%;
 	height: 96%;
 	position: absolute;

@@ -19,7 +19,7 @@ function HomePage({ children }) {
 
 	return (
 		<ContainerStyled>
-			<TitleSection title='¡Soy Pickle Riiiick!' />
+			<TitleSection title={`¡I'm Pickle Riiiick!`} />
 			{children}
 		</ContainerStyled>
 	);
