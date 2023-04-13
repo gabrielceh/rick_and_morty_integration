@@ -111,7 +111,7 @@ export const SkillFigure = styled.figure`
 	}
 `;
 
-export const SkillCaption = styled.caption`
+export const SkillCaption = styled.figcaption`
 	display: block;
 	width: 100%;
 	text-align: center;

@@ -33,7 +33,7 @@ function App() {
 	const PASSWORD = '123abcd';
 
 	useEffect(() => {
-		// !access && navigate('/', { replace: true });
+		!access && navigate('/', { replace: true });
 	}, [access]);
 
 	const onSearch = (id) => {
