@@ -28,10 +28,6 @@ function Favorites({ onClose }) {
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		console.log(myFavorites);
-	}, []);
-
 	const handleOrder = (event) => {
 		let order = event.target.value;
 		if (order.trim()) {

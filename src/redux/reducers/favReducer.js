@@ -39,11 +39,9 @@ export const favReducer = (state = initialState, action) => {
 					myFavorites: [...state.allCharacters],
 				};
 			}
-			console.log(action.payload);
 			const filter = copyAllcharFilter.filter(
 				(character) => character?.gender === action.payload
 			);
-			console.log(filter);
 			return {
 				...state,
 				myFavorites: [...filter],
