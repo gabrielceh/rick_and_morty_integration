@@ -14,8 +14,12 @@ import {
 	SkillCaption,
 	SkillFigure,
 	SkillsContainer,
+	SocialLinksContainer,
+	SocialSection,
 	WelcomeSection,
 } from './About.styled';
+import LinkedInICon from '../../components/icons/LinkedInIcon';
+import InstagramIcon from '../../components/icons/InstagramIcon';
 
 function About() {
 	return (
@@ -83,6 +87,24 @@ function About() {
 							))}
 						</SkillsContainer>
 					</section>
+
+					<SocialSection>
+						<SectionAboutTitles>Contact</SectionAboutTitles>
+						<SocialLinksContainer>
+							<a
+								href='https://www.linkedin.com/in/gabriel-cervantes-hurtado/'
+								target='_blank'
+								rel='noopener noreferrer'>
+								<LinkedInICon className='social-icon' />
+							</a>
+							<a
+								href='https://www.instagram.com/gabo_cervantes/'
+								target='_blank'
+								rel='noopener noreferrer'>
+								<InstagramIcon className='social-icon' />
+							</a>
+						</SocialLinksContainer>
+					</SocialSection>
 				</AboutContainserStyled>
 			</ContainerStyled>
 		</>

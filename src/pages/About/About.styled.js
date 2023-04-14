@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import imageBG from '../../assets/images/about_main_picture.jpg';
 
 export const AboutContainserStyled = styled.div`
 	margin: 0 auto;
@@ -23,12 +24,14 @@ export const WelcomeSection = styled.section`
 `;
 
 export const MainImageAbout = styled.img`
-	width: 300px;
-	height: 300px;
+	width: 250px;
+	height: 250px;
 	border-radius: 20px;
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
 		order: 1;
+		width: 300px;
+		height: 300px;
 	}
 `;
 
@@ -65,6 +68,11 @@ export const SectionAboutTitles = styled.h2`
 	font-size: ${({ theme }) => theme.fontSize.xl_3};
 	align-self: flex-start;
 	margin-bottom: 1.5rem;
+
+	&::selection {
+		color: ${({ theme }) => theme.colors.yellow['300']};
+		background-color: ${({ theme }) => theme.colors.emerald['600']};
+	}
 `;
 
 export const ProjectCard = styled.article`
@@ -95,6 +103,12 @@ export const ProjectCardInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+
+	& p::selection,
+	& h3::selection {
+		color: ${({ theme }) => theme.colors.yellow['300']};
+		background-color: ${({ theme }) => theme.colors.emerald['600']};
+	}
 `;
 
 export const SkillsContainer = styled.div`
@@ -133,4 +147,29 @@ export const SkillCaption = styled.figcaption`
 	color: ${({ theme }) => theme.colors.emerald['900']};
 	font-weight: 700;
 	font-size: ${({ theme }) => theme.fontSize.xl};
+`;
+
+export const SocialSection = styled.section`
+	width: 100%;
+	padding: 1rem;
+	background-image: url(${imageBG});
+	background-size: 70%;
+	background-position: 50% -190%;
+	background-attachment: fixed;
+`;
+
+export const SocialLinksContainer = styled.div`
+	width: 100%;
+	justify-content: end;
+	display: flex;
+	& .social-icon {
+		stroke: ${({ theme }) => theme.colors.emerald['500']};
+		width: 80px;
+		height: 80px;
+		transition: scale 0.3s ease-in-out, stroke 0.3s ease-in-out;
+	}
+	& .social-icon:hover {
+		stroke: ${({ theme }) => theme.colors.emerald['50']};
+		scale: 1.1;
+	}
 `;
