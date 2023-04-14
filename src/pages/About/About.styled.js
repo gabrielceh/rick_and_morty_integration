@@ -153,9 +153,8 @@ export const SocialSection = styled.section`
 	width: 100%;
 	padding: 1rem;
 	background-image: url(${imageBG});
-	background-size: 70%;
-	background-position: 50% -190%;
-	background-attachment: fixed;
+	background-size: 100%;
+	background-position: 50% 45%;
 `;
 
 export const SocialLinksContainer = styled.div`
