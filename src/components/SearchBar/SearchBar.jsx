@@ -49,7 +49,7 @@ function SearchBar({ onSearch, onModalClose }) {
 						value={id}
 						onChange={handleChange}
 						mode={darkMode}
-						placeholder='Example: 356'
+						placeholder='Example: 170'
 					/>
 					<ButtonSearchStyled
 						onClick={handleClick}

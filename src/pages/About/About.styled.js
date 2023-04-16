@@ -79,6 +79,8 @@ export const ProjectCard = styled.article`
 	width: 100%;
 	padding: 1rem;
 	background-color: ${({ theme }) => theme.body};
+	color: ${({ theme }) => theme.text};
+
 	border: ${({ theme }) => `1px solid ${theme.colors.yellow['300']}`};
 	display: flex;
 	align-items: center;

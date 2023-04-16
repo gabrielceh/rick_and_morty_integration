@@ -21,12 +21,15 @@ import Favorites from './pages/Favorites/Favorites';
 import BtnDarkMode from './components/BtnDarkMode/BtnDarkMode';
 import HomePage from './pages/Home/HomePage';
 import Prueba from './components/Prueba';
+import Toast from './components/Toast/Toast';
+import { ToastContext } from './context/ToastContext';
 
 function App() {
 	const [characters, setCharacters] = useState([]);
 	const [access, setAccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
+	const { toastList, addToast, deleteToast } = useContext(ToastContext);
 	const navigate = useNavigate();
 
 	const EMAIL = 'gabriel@gmail.com';
@@ -38,19 +41,30 @@ function App() {
 
 	const onSearch = (id) => {
 		let findId = characters.find((character) => character.id === id);
-		if (findId !== undefined) return window.alert('El Id ya esta en la lista');
+		if (findId !== undefined)
+			return addToast({
+				title: 'Warning',
+				description: 'Id in list',
+				type: 'warning',
+			});
 
 		setLoading(true);
 		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
 			.then(({ data }) => {
-				if (data.name) {
-					setCharacters((oldChars) => [data, ...oldChars]);
-				} else {
-					window.alert('Id no encontrado');
-				}
+				setCharacters((oldChars) => [data, ...oldChars]);
+				addToast({
+					title: 'Added',
+					description: `${data.name} was added`,
+					type: 'success',
+				});
 			})
 			.catch((error) => {
-				window.alert(error);
+				console.log(error.message);
+				addToast({
+					title: 'Error',
+					description: error.message,
+					type: 'error',
+				});
 			})
 			.finally(() => setLoading(false));
 	};
@@ -125,6 +139,14 @@ function App() {
 					</Routes>
 				</MainContainerStyled>
 				<BtnDarkMode />
+
+				{toastList.length > 0 && (
+					<Toast
+						toastList={toastList}
+						deleteToast={deleteToast}
+						position='top-center'
+					/>
+				)}
 				<Footer />
 			</AppContainer>
 		</ThemeProvider>
@@ -142,13 +164,13 @@ const AppContainer = styled.div`
 `;
 
 const MainContainerStyled = styled.main`
-	margin-top: 120px;
+	margin-top: 100px;
 	width: 100%;
 
 	@media ${({ theme }) => theme.screenSize.laptop} {
 		& {
 			margin: 0 auto;
-			margin-top: 120px;
+			margin-top: 100px;
 		}
 	} ;
 `;

@@ -42,3 +42,43 @@ h6 {
 a {
 	text-decoration: none;
 }
+
+.notification-container {
+	font-size: 14px;
+	box-sizing: border-box;
+	position: fixed;
+	z-index: 10;
+	width: fit-content;
+	height: fit-content;
+}
+
+.notification-container.top-right {
+	top: 24px;
+	right: 24px;
+	transition: transform 0.6s ease-in-out;
+	animation: toast-in-right 0.7s;
+}
+
+.notification-container.bottom-right {
+	bottom: 24px;
+	right: 24px;
+	transition: transform 0.6s ease-in-out;
+	animation: toast-in-right 0.7s;
+}
+
+.notification-container.top-left {
+	top: 24px;
+	left: 24px;
+	transition: transform 0.6s ease-in;
+	animation: toast-in-left 0.7s;
+}
+
+.notification-container.bottom-left {
+	bottom: 24px;
+	left: 24px;
+}
+.notification-container.top-center {
+	top: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+}

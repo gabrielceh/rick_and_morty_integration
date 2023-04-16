@@ -41,23 +41,6 @@ export const SkeletonDetailsStyled = styled.div`
 
 	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
-	@media ${({ theme }) => theme.screenSize.tablet} {
-		& {
-			margin-bottom: 1.5rem;
-			flex-direction: column;
-			gap: 2rem;
-			max-width: 1080px;
-			max-height: 1080px;
-		}
-	}
-
-	@media ${({ theme }) => theme.screenSize.laptop} {
-		& {
-			flex-direction: row;
-			gap: 3rem;
-		}
-	}
-
 	@keyframes pulse {
 		0% {
 			opacity: 1;
@@ -72,17 +55,19 @@ export const SkeletonDetailsStyled = styled.div`
 `;
 
 export const SkeletonImgContStyled = styled.div`
-	width: 350px;
-	height: 350px;
+	width: 100%;
+	max-width: 1980px;
+	height: 200px;
+	min-height: 200px;
+	max-height: 200px;
 	overflow: hidden;
 	padding: 1.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-radius: 50%;
 	background-color: ${({ theme }) => theme.colors.slate['400']};
-	border: ${({ theme }) => `5px solid ${theme.colors.slate['200']}`};
+	border: ${({ theme }) => `1px solid ${theme.colors.slate['200']}`};
 
 	& .svg {
 		width: 300px;
@@ -92,8 +77,9 @@ export const SkeletonImgContStyled = styled.div`
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
 		& {
-			width: 400px;
-			height: 400px;
+			height: 320px;
+			min-height: 320px;
+			max-height: 320px;
 		}
 		& img {
 			width: 90%;
@@ -135,9 +121,33 @@ export const TitleSkeleton = styled.article`
 	background-color: ${({ theme }) => theme.colors.slate['300']};
 `;
 
-export const LinesSkeleton = styled.article`
+export const LinesSkeleton = styled.div`
 	height: 0.8rem;
 	width: 65%;
 	border-radius: 10px;
 	background-color: ${({ theme }) => theme.colors.slate['300']};
+`;
+
+export const SkeletonGrid = styled.section`
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 2rem;
+	justify-items: center;
+`;
+
+export const SkeletonITemsGridDetail = styled.article`
+	display: grid;
+	place-content: center;
+	width: 150px;
+	height: 100px;
+	padding: 0.5rem;
+	border-radius: 10px;
+	background-color: ${({ theme }) => theme.colors.slate['500']};
+
+	& div {
+		width: 100px;
+	}
 `;

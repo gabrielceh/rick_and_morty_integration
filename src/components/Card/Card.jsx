@@ -18,10 +18,13 @@ import {
 	InfoTextStyled,
 } from './Card.styles';
 
+import { ToastContext } from '../../context/ToastContext';
+
 function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 	const [isFav, setIsFav] = useState(false);
 	const [deviceIsMobile, setDeviceIsMobile] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
+	const { addToast } = useContext(ToastContext);
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
@@ -44,7 +47,7 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 				return;
 			}
 		});
-	}, [myFavorites]);
+	}, [myFavorites, id]);
 
 	const handleClose = (event) => {
 		event.preventDefault();
@@ -57,6 +60,14 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 		if (isFav) {
 			setIsFav(false);
 			dispatch(removeFav(id));
+			addToast(
+				{
+					title: 'Removed from favs',
+					description: `${name} was removed from your favorites`,
+					type: 'info',
+				},
+				'bottom-right'
+			);
 		} else {
 			setIsFav(true);
 			dispatch(
@@ -70,46 +81,56 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 					image,
 				})
 			);
+			addToast(
+				{
+					title: 'Added to favs',
+					description: `${name} was added to your favorites`,
+					type: 'success',
+				},
+				'bottom-right'
+			);
 		}
 	};
 
 	return (
-		<Link to={`/detail/${id}`}>
-			<CardStyled darkMode={darkMode}>
-				<CardContainerStyled>
-					<ImgCardStyled
-						src={image}
-						alt={name}
-					/>
-					<InfoContainerStyled className={deviceIsMobile ? 'mobile' : ''}>
-						<InfoHeaderStyled>
-							<span title={status}>{statusIcon[status]}</span>
-							<h3>{name}</h3>
-						</InfoHeaderStyled>
-						<InfoBodyStyled>
-							{/* <InfoTextStyled>{species}</InfoTextStyled> */}
-							<InfoTextStyled>ID: {id}</InfoTextStyled>
-							<InfoTextStyled>{gender}</InfoTextStyled>
-							{/* <InfoTextStyled>Location: {origin.name}</InfoTextStyled> */}
-						</InfoBodyStyled>
-						<ButtonsContainerStyled>
-							<ButtonCardStyled
-								onClick={handleClose}
-								title='Delete'
-								className={deviceIsMobile ? 'mobile' : ''}>
-								✖️
-							</ButtonCardStyled>
-							<ButtonCardStyled
-								onClick={handleFavorite}
-								title='Add to favorite'
-								className={deviceIsMobile ? 'mobile' : ''}>
-								{isFav ? '💚' : '🤍'}
-							</ButtonCardStyled>
-						</ButtonsContainerStyled>
-					</InfoContainerStyled>
-				</CardContainerStyled>
-			</CardStyled>
-		</Link>
+		<>
+			<Link to={`/detail/${id}`}>
+				<CardStyled darkMode={darkMode}>
+					<CardContainerStyled>
+						<ImgCardStyled
+							src={image}
+							alt={name}
+						/>
+						<InfoContainerStyled className={deviceIsMobile ? 'mobile' : ''}>
+							<InfoHeaderStyled>
+								<span title={status}>{statusIcon[status]}</span>
+								<h3>{name}</h3>
+							</InfoHeaderStyled>
+							<InfoBodyStyled>
+								{/* <InfoTextStyled>{species}</InfoTextStyled> */}
+								<InfoTextStyled>ID: {id}</InfoTextStyled>
+								<InfoTextStyled>{gender}</InfoTextStyled>
+								{/* <InfoTextStyled>Location: {origin.name}</InfoTextStyled> */}
+							</InfoBodyStyled>
+							<ButtonsContainerStyled>
+								<ButtonCardStyled
+									onClick={handleClose}
+									title='Delete'
+									className={deviceIsMobile ? 'mobile' : ''}>
+									✖️
+								</ButtonCardStyled>
+								<ButtonCardStyled
+									onClick={handleFavorite}
+									title='Add to favorite'
+									className={deviceIsMobile ? 'mobile' : ''}>
+									{isFav ? '💚' : '🤍'}
+								</ButtonCardStyled>
+							</ButtonsContainerStyled>
+						</InfoContainerStyled>
+					</CardContainerStyled>
+				</CardStyled>
+			</Link>
+		</>
 	);
 }
 

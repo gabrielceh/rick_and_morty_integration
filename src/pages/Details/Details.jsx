@@ -9,10 +9,12 @@ import TitleSection from '../../components/Title/TitleSection';
 import SkeletonDetails from '../../components/Skeleton/SkeletonDetails';
 import { ContainerStyled } from '../../styled/container.styled';
 import {
-	DetailsContainerStyled,
-	DetailsInfoSectionStyled,
-	DetailsSectionStyled,
+	BackgroundImageHero,
+	ContainerImageHeroStyled,
 	DetailsStatusStyled,
+	ImageContainer,
+	InfoCard,
+	InfoContainer,
 } from './Details.styled';
 
 function Details() {
@@ -41,30 +43,38 @@ function Details() {
 	}, [id]);
 
 	return (
-		<ContainerStyled>
-			<TitleSection title='Details' />
+		<>
 			{loading && <SkeletonDetails />}
 			{character && !loading ? (
-				<DetailsContainerStyled>
-					<DetailsSectionStyled>
-						<img
-							src={character.image}
-							alt={character.name}
-						/>
-					</DetailsSectionStyled>
-					<DetailsInfoSectionStyled>
-						<h2>
-							{character?.id} - {character?.name}
-						</h2>
-						<DetailsStatusStyled status={character?.status}>
-							Status: {character?.status}
-						</DetailsStatusStyled>
-						<p>Especie: {character?.species}</p>
-						<p>Gender: {character?.gender}</p>
-						<p>Origin: {character?.origin.name}</p>
-						<p>Locattion: {character?.location.name}</p>
-					</DetailsInfoSectionStyled>
-				</DetailsContainerStyled>
+				<>
+					<ContainerImageHeroStyled url={character?.image}>
+						<BackgroundImageHero>
+							{/* <ContainerStyled> */}
+							<TitleSection title={character.name} />
+							{/* </ContainerStyled> */}
+						</BackgroundImageHero>
+					</ContainerImageHeroStyled>
+
+					<ContainerStyled>
+						<InfoContainer>
+							<InfoCard>
+								<DetailsStatusStyled status={character?.status}>
+									Status: {character?.status}
+								</DetailsStatusStyled>
+							</InfoCard>
+							<InfoCard>Especie: {character?.species}</InfoCard>
+							<InfoCard>Gender: {character?.gender}</InfoCard>
+							<InfoCard>Origin: {character?.origin.name}</InfoCard>
+							<InfoCard>Locattion: {character?.location.name}</InfoCard>
+						</InfoContainer>
+						<ImageContainer>
+							<img
+								src={character?.image}
+								alt={character?.name}
+							/>
+						</ImageContainer>
+					</ContainerStyled>
+				</>
 			) : (
 				errorRes.res && (
 					<ErrorMessage
@@ -73,7 +83,7 @@ function Details() {
 					/>
 				)
 			)}
-		</ContainerStyled>
+		</>
 	);
 }
 

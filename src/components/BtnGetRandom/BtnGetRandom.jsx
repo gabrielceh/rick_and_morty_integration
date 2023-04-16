@@ -4,6 +4,7 @@ import { BtnOutlineStyled } from '../../styled/BtnStyles.style';
 function BtnGetRandom({ onSearch, onModalClose }) {
 	// https://rickandmortyapi.com/documentation/#get-all-characters primer y ultimo id
 	const navigate = useNavigate();
+
 	const generateRandom = () => Math.floor(Math.random() * (826 - 1 + 1) + 1);
 
 	const handleClick = () => {

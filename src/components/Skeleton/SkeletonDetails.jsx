@@ -3,10 +3,11 @@ import React from 'react';
 import ImagenSkeleton from '../icons/ImageSkeleton';
 import {
 	LinesSkeleton,
-	SkeletonBottomStyled,
+	SkeletonCardStyled,
 	SkeletonDetailsStyled,
+	SkeletonGrid,
+	SkeletonITemsGridDetail,
 	SkeletonImgContStyled,
-	TitleSkeleton,
 } from './Skeleton.styled';
 
 function SkeletonDetails() {
@@ -15,13 +16,28 @@ function SkeletonDetails() {
 			<SkeletonImgContStyled>
 				<ImagenSkeleton className='svg' />
 			</SkeletonImgContStyled>
-			<SkeletonBottomStyled>
-				<TitleSkeleton />
-				<LinesSkeleton />
-				<LinesSkeleton />
-				<LinesSkeleton />
-				<LinesSkeleton />
-			</SkeletonBottomStyled>
+			<SkeletonGrid>
+				<SkeletonITemsGridDetail>
+					<LinesSkeleton />
+				</SkeletonITemsGridDetail>
+				<SkeletonITemsGridDetail>
+					<LinesSkeleton />
+				</SkeletonITemsGridDetail>
+				<SkeletonITemsGridDetail>
+					<LinesSkeleton />
+				</SkeletonITemsGridDetail>
+				<SkeletonITemsGridDetail>
+					<LinesSkeleton />
+				</SkeletonITemsGridDetail>
+				<SkeletonITemsGridDetail>
+					<LinesSkeleton />
+				</SkeletonITemsGridDetail>
+			</SkeletonGrid>
+			<div style={{ marginBottom: '2rem' }}>
+				<SkeletonCardStyled>
+					<ImagenSkeleton className='svg' />
+				</SkeletonCardStyled>
+			</div>
 		</SkeletonDetailsStyled>
 	);
 }
