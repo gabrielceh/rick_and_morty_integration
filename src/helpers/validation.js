@@ -4,16 +4,15 @@ const validateLoginForm = (form) => {
 	const passwordPatron = /^(?=.*\d).+$/;
 
 	if (!form.email.trim()) errors.email = 'Ingrese un email';
-	else if (!emailPatron.test(form.email))
-		errors.email = 'Ingrese un email valido';
+	else if (!emailPatron.test(form.email)) errors.email = 'Enter a valid Email';
 	else if (form.email.length > 35)
-		errors.email = 'El email no puede tener mas de 35 caracteres';
+		errors.email = "Email shouldn't have more than 35 characters";
 
-	if (!form.password.trim()) errors.password = 'Ingrese una contraseña';
+	if (!form.password.trim()) errors.password = 'Enter a password';
 	else if (!passwordPatron.test(form.password))
-		errors.password = 'Al menos un numero y sin simbolos especiales';
+		errors.password = 'aA least one number and one special character';
 	else if (form.password.length < 6 || form.password.length > 10)
-		errors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
+		errors.password = 'Password must be between 6 and 10 characters';
 
 	return errors;
 };

@@ -12,7 +12,7 @@ function Toast({
 	position = 'top-left',
 	deleteToast,
 	autoDelete = true,
-	autoDeleteTime = 5000,
+	autoDeleteTime = 2000,
 }) {
 	const [list, setList] = useState(toastList);
 

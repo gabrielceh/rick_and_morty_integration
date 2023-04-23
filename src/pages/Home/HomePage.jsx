@@ -1,26 +1,33 @@
-// import React, { useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { removeCharacter } from '../../redux/actions/actionCharacters';
+import React, { useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import { ContainerStyled } from '../../styled/container.styled';
 import TitleSection from '../../components/Title/TitleSection';
+import Cards from '../../components/Cards/Cards';
+import { ToastContext } from '../../context/ToastContext';
 
 function HomePage({ children }) {
-	// const characters = useSelector((state) => state.characters);
-	// const dispatch = useDispatch();
+	const characters = useSelector((state) => state.characters);
+	const loader = useSelector((state) => state.loader);
+	const { addToast } = useContext(ToastContext);
 
-	// const onClose = (id) => {
-	// 	dispatch(removeCharacter(id));
-	// };
-
-	// useEffect(() => {
-	// 	console.log(characters);
-	// }, [characters]);
+	useEffect(() => {
+		if (characters.error) {
+			addToast({
+				title: 'Error',
+				description: characters.error,
+				type: 'error',
+			});
+		}
+	}, [characters, addToast]);
 
 	return (
 		<ContainerStyled>
 			<TitleSection title={`¡I'm Pickle Riiiick!`} />
-			{children}
+			<Cards
+				characters={characters.data}
+				loading={loader}
+			/>
 		</ContainerStyled>
 	);
 }

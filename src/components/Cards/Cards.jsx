@@ -22,6 +22,7 @@ export default function Cards({ characters, onClose, loading = false }) {
 							gender={character.gender}
 							origin={character.origin}
 							image={character.image}
+							location={character.location}
 							onClose={onClose}
 						/>
 					))}

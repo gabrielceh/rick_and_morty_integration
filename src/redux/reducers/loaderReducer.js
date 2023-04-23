@@ -3,10 +3,10 @@ import { LOADER_ON, LOADER_OFF } from '../actions/loadingActions';
 export const loaderReducer = (state = false, action) => {
 	switch (action.type) {
 		case LOADER_ON:
-			return false;
+			return (state = true);
 
 		case LOADER_OFF:
-			return false;
+			return (state = false);
 
 		default:
 			return false;

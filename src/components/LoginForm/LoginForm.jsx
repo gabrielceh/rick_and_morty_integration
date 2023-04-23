@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/actions/actionUser';
 import { validateLoginForm } from '../../helpers/validation';
 import {
 	BtnFormSubmitStyled,
@@ -10,13 +12,16 @@ import {
 } from './LoginForm.styled';
 
 const initialState = {
-	email: '',
-	password: '',
+	email: 'gabriel@gmail.com',
+	password: '123abcd',
 };
 
-function LoginForm({ login }) {
+function LoginForm() {
 	const [userData, setUserData] = useState(initialState);
 	const [errors, setErrors] = useState({});
+
+	const loader = useSelector((state) => state.loader);
+	const dispatch = useDispatch();
 
 	const handleChange = (event) => {
 		const value = event.target.value;
@@ -37,7 +42,7 @@ function LoginForm({ login }) {
 			if (errors[error]) return window.alert(`${errors[error]}`);
 		}
 
-		login(userData);
+		dispatch(login(userData));
 	};
 
 	return (
@@ -79,7 +84,9 @@ function LoginForm({ login }) {
 				)}
 			</InputContainerStyled>
 
-			<BtnFormSubmitStyled type='submit'>Submit</BtnFormSubmitStyled>
+			<BtnFormSubmitStyled type='submit'>
+				{loader ? 'Loading' : 'Login'}
+			</BtnFormSubmitStyled>
 		</FormLoginContainerStyled>
 	);
 }

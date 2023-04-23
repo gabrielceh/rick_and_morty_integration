@@ -5,9 +5,8 @@ import axios from 'axios';
 import { urls } from '../../helpers/URL';
 
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import TitleSection from '../../components/Title/TitleSection';
 import SkeletonDetails from '../../components/Skeleton/SkeletonDetails';
-import { ContainerStyled } from '../../styled/container.styled';
+
 import {
 	BackgroundImageHero,
 	ContainerImageHeroStyled,
@@ -15,10 +14,16 @@ import {
 	ImageContainer,
 	InfoCard,
 	InfoContainer,
+	DetailStyled,
+	DetailsMiddleSectionStyled,
+	DividerSection,
+	NameStyled,
 } from './Details.styled';
+import BtnFavDetail from '../../components/BtnFav/BtnFav';
 
 function Details() {
 	const [character, setCharacter] = useState(null);
+	const [infoSect, setInfoSect] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [errorRes, setErrorRes] = useState({
 		res: false,
@@ -28,10 +33,17 @@ function Details() {
 
 	useEffect(() => {
 		setLoading(true);
-		axios(`${urls.baseURL}/${id}?key=${urls.key}`)
+		axios(`${urls.baseURL}/${id}`)
 			.then((response) => response.data)
 			.then((data) => {
 				setCharacter(data);
+				let info = [
+					{ id: '1', className: 'species', label: data.species },
+					{ id: '2', className: 'gender', label: data.gender },
+					{ id: '3', className: 'origin', label: data.origin.name },
+					{ id: '4', className: 'location', label: data.location.name },
+				];
+				setInfoSect([...info]);
 			})
 			.catch((error) => {
 				setErrorRes({
@@ -46,35 +58,50 @@ function Details() {
 		<>
 			{loading && <SkeletonDetails />}
 			{character && !loading ? (
-				<>
+				<DetailStyled status={character.status}>
 					<ContainerImageHeroStyled url={character?.image}>
 						<BackgroundImageHero>
-							{/* <ContainerStyled> */}
-							<TitleSection title={character.name} />
-							{/* </ContainerStyled> */}
+							<ImageContainer status={character.status}>
+								<img
+									src={character?.image}
+									alt={character?.name}
+								/>
+							</ImageContainer>
+							<NameStyled>{character.name}</NameStyled>
 						</BackgroundImageHero>
 					</ContainerImageHeroStyled>
 
-					<ContainerStyled>
-						<InfoContainer>
-							<InfoCard>
-								<DetailsStatusStyled status={character?.status}>
-									Status: {character?.status}
-								</DetailsStatusStyled>
+					<DetailsMiddleSectionStyled status={character.status}>
+						<BtnFavDetail
+							id={character.id}
+							name={character.name}
+							status={character.status}
+							species={character.species}
+							gender={character.gender}
+							origin={character.origin}
+							image={character.image}
+							location={character.location}
+							className='detail'
+						/>
+						<DividerSection className='vert'></DividerSection>
+						<DetailsStatusStyled status={character?.status}>
+							Status: {character?.status}
+						</DetailsStatusStyled>
+					</DetailsMiddleSectionStyled>
+
+					<InfoContainer>
+						{/* <InfoCard></InfoCard> */}
+						{infoSect.map((info) => (
+							<InfoCard
+								key={info.id}
+								className={info.className}>
+								<div>
+									{info.className.toUpperCase()}:<br /> {info.label}
+								</div>
 							</InfoCard>
-							<InfoCard>Especie: {character?.species}</InfoCard>
-							<InfoCard>Gender: {character?.gender}</InfoCard>
-							<InfoCard>Origin: {character?.origin.name}</InfoCard>
-							<InfoCard>Locattion: {character?.location.name}</InfoCard>
-						</InfoContainer>
-						<ImageContainer>
-							<img
-								src={character?.image}
-								alt={character?.name}
-							/>
-						</ImageContainer>
-					</ContainerStyled>
-				</>
+						))}
+					</InfoContainer>
+				</DetailStyled>
 			) : (
 				errorRes.res && (
 					<ErrorMessage

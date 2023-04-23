@@ -4,40 +4,42 @@ import ImagenSkeleton from '../icons/ImageSkeleton';
 import {
 	LinesSkeleton,
 	SkeletonCardStyled,
+	SkeletonDetailMiddleSectionStyled,
 	SkeletonDetailsStyled,
 	SkeletonGrid,
 	SkeletonITemsGridDetail,
 	SkeletonImgContStyled,
+	SkeletonImgDetailStyled,
+	TitleSkeleton,
 } from './Skeleton.styled';
 
 function SkeletonDetails() {
 	return (
 		<SkeletonDetailsStyled>
 			<SkeletonImgContStyled>
-				<ImagenSkeleton className='svg' />
+				<div style={{ margin: '1rem auto' }}>
+					<SkeletonImgDetailStyled>
+						<ImagenSkeleton className='svg' />
+					</SkeletonImgDetailStyled>
+				</div>
 			</SkeletonImgContStyled>
+
+			<SkeletonDetailMiddleSectionStyled></SkeletonDetailMiddleSectionStyled>
+
 			<SkeletonGrid>
 				<SkeletonITemsGridDetail>
-					<LinesSkeleton />
+					<TitleSkeleton />
 				</SkeletonITemsGridDetail>
 				<SkeletonITemsGridDetail>
-					<LinesSkeleton />
+					<TitleSkeleton />
 				</SkeletonITemsGridDetail>
 				<SkeletonITemsGridDetail>
-					<LinesSkeleton />
+					<TitleSkeleton />
 				</SkeletonITemsGridDetail>
 				<SkeletonITemsGridDetail>
-					<LinesSkeleton />
-				</SkeletonITemsGridDetail>
-				<SkeletonITemsGridDetail>
-					<LinesSkeleton />
+					<TitleSkeleton />
 				</SkeletonITemsGridDetail>
 			</SkeletonGrid>
-			<div style={{ marginBottom: '2rem' }}>
-				<SkeletonCardStyled>
-					<ImagenSkeleton className='svg' />
-				</SkeletonCardStyled>
-			</div>
 		</SkeletonDetailsStyled>
 	);
 }

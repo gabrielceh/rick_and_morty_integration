@@ -9,6 +9,7 @@ export const SkeletonCardStyled = styled.div`
 	background-color: ${({ theme }) => theme.colors.slate['400']};
 	border: ${({ theme }) => `5px solid ${theme.colors.slate['200']}`};
 	border-radius: 10px;
+	overflow: hidden;
 
 	& .svg {
 		width: 6rem;
@@ -31,13 +32,51 @@ export const SkeletonCardStyled = styled.div`
 	}
 `;
 
-export const SkeletonDetailsStyled = styled.div`
-	margin: 0 auto;
+export const SkeletonImgDetailStyled = styled.div`
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	align-items: center;
-	gap: 2rem;
+	justify-content: center;
+	width: 150px;
+	height: 150px;
+	background-color: ${({ theme }) => theme.colors.slate['400']};
+	border: ${({ theme }) => `5px solid ${theme.colors.slate['200']}`};
+	border-radius: 50%;
+	overflow: hidden;
+
+	& .svg {
+		width: 6rem;
+		height: 6rem;
+		fill: ${({ theme }) => theme.colors.slate['300']};
+	}
+
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		width: 250px;
+		height: 250px;
+		min-height: 250px;
+		max-height: 250px;
+	}
+
+	@keyframes pulse {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+`;
+
+export const SkeletonDetailsStyled = styled.div`
+	max-width: 850px;
+	margin: 0 auto;
+	border-radius: 20px;
+	overflow: hidden;
+	border: ${({ theme }) => `10px solid ${theme.colors.slate['100']}`};
 
 	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
@@ -57,9 +96,9 @@ export const SkeletonDetailsStyled = styled.div`
 export const SkeletonImgContStyled = styled.div`
 	width: 100%;
 	max-width: 1980px;
-	height: 200px;
-	min-height: 200px;
-	max-height: 200px;
+	height: 350px;
+	min-height: 320px;
+	max-height: 350px;
 	overflow: hidden;
 	padding: 1.5rem;
 	display: flex;
@@ -77,9 +116,9 @@ export const SkeletonImgContStyled = styled.div`
 
 	@media ${({ theme }) => theme.screenSize.tablet} {
 		& {
-			height: 320px;
-			min-height: 320px;
-			max-height: 320px;
+			height: 450px;
+			min-height: 450px;
+			max-height: 450px;
 		}
 		& img {
 			width: 90%;
@@ -114,10 +153,11 @@ export const SkeletonBottomStyled = styled.div`
 	}
 `;
 
-export const TitleSkeleton = styled.article`
+export const TitleSkeleton = styled.div`
 	height: 1.5rem;
 	border-radius: 10px;
 	width: 100%;
+	min-width: 200px;
 	background-color: ${({ theme }) => theme.colors.slate['300']};
 `;
 
@@ -128,26 +168,39 @@ export const LinesSkeleton = styled.div`
 	background-color: ${({ theme }) => theme.colors.slate['300']};
 `;
 
+export const SkeletonDetailMiddleSectionStyled = styled.section`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	width: 100%;
+	height: 116px;
+	background-color: ${({ theme }) => theme.colors.slate['300']};
+	transition: background-color 0.5s ease-in-out;
+	border-top: ${({ theme }) => `2px solid ${theme.colors.slate['100']}`};
+	border-bottom: ${({ theme }) => `2px solid ${theme.colors.slate['100']}`};
+`;
+
 export const SkeletonGrid = styled.section`
-	margin-top: 2rem;
-	margin-bottom: 2rem;
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	gap: 2rem;
 	justify-items: center;
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	}
 `;
 
 export const SkeletonITemsGridDetail = styled.article`
 	display: grid;
 	place-content: center;
-	width: 150px;
-	height: 100px;
-	padding: 0.5rem;
-	border-radius: 10px;
+	width: 100%;
+	height: 120px;
 	background-color: ${({ theme }) => theme.colors.slate['500']};
 
 	& div {
 		width: 100px;
+	}
+	@media ${({ theme }) => theme.screenSize.tablet} {
+		height: 200px;
 	}
 `;

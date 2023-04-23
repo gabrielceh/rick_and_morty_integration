@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const ToastContext = createContext();
 
@@ -7,7 +7,13 @@ const ToastProvider = ({ children }) => {
 
 	const addToast = (toast) => {
 		toast.id = crypto.randomUUID();
-		setToastList([...toastList, toast]);
+		if (toastList.length >= 3) {
+			const newList = [...toastList];
+			newList.shift();
+			setToastList([...newList, toast]);
+		} else {
+			setToastList([...toastList, toast]);
+		}
 	};
 
 	const deleteToast = (id) => {

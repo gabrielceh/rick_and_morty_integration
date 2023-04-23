@@ -3,6 +3,7 @@ import {
 	REMOVE_FAV,
 	ORDER_FAV,
 	FILTER_FAV,
+	GET_FAVS,
 } from '../actions/actionsFavorites';
 
 const initialState = {
@@ -12,22 +13,27 @@ const initialState = {
 
 export const favReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case GET_FAVS: {
+			return {
+				...state,
+				myFavorites: [...action.payload],
+				allCharactersFav: [...action.payload],
+			};
+		}
+
 		case ADD_FAV: {
 			return {
 				...state,
-				myFavorites: [action.payload, ...state.allCharactersFav],
-				allCharactersFav: [action.payload, ...state.allCharactersFav],
+				myFavorites: [...action.payload],
+				allCharactersFav: [...action.payload],
 			};
 		}
 
 		case REMOVE_FAV: {
-			const removed = state.allCharactersFav.filter(
-				(fav) => fav.id !== action.payload
-			);
 			return {
 				...state,
-				allCharactersFav: [...removed],
-				myFavorites: [...removed],
+				allCharactersFav: [...action.payload],
+				myFavorites: [...action.payload],
 			};
 		}
 

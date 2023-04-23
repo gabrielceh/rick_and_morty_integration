@@ -29,11 +29,14 @@ export const charactetReducer = (state = intitalState, action) => {
 			);
 
 			if (findCharacterById)
-				return { error: 'Id in list', data: [...state.data] };
+				return {
+					error: 'Id in list',
+					data: [...state.data],
+				};
 
 			return {
 				error: '',
-				data: [...state.data, action.payload.data],
+				data: [action.payload.data, ...state.data],
 			};
 
 		case REMOVE_CHARACTER:
@@ -50,7 +53,10 @@ export const charactetReducer = (state = intitalState, action) => {
 			const characterFilter = state.data.filter(
 				(character) => character.id !== action.payload
 			);
-			return { error: '', data: [...characterFilter] };
+			return {
+				error: '',
+				data: [...characterFilter],
+			};
 
 		default:
 			return {

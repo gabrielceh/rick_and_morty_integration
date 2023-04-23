@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { orderFav, filterFav } from '../../redux/actions/actionsFavorites';
+import {
+	orderFav,
+	filterFav,
+	getFavs,
+} from '../../redux/actions/actionsFavorites';
 
 import Cards from '../../components/Cards/Cards';
 import TitleSection from '../../components/Title/TitleSection';
@@ -22,11 +26,15 @@ const selectFilter = [
 	{ value: 'all', label: 'ALL characters' },
 ];
 
-function Favorites({ onClose }) {
+function Favorites() {
 	const [aux, setAux] = useState(false);
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getFavs());
+	}, []);
 
 	const handleOrder = (event) => {
 		let order = event.target.value;
@@ -61,10 +69,7 @@ function Favorites({ onClose }) {
 					name='favorites-filter'
 				/>
 			</SelectSectionStyled>
-			<Cards
-				characters={myFavorites}
-				onClose={onClose}
-			/>
+			<Cards characters={myFavorites} />
 		</ContainerStyled>
 	);
 }

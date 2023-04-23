@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 // import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from '../../redux/actions/actionsFavorites';
+import { removeCharacter } from '../../redux/actions/actionCharacters';
 import { isMobile } from '../../helpers/userDeviceInfo';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
@@ -20,7 +21,7 @@ import {
 
 import { ToastContext } from '../../context/ToastContext';
 
-function Card2({ id, name, status, species, gender, origin, image, onClose }) {
+function Card2({ id, name, status, species, gender, origin, image, location }) {
 	const [isFav, setIsFav] = useState(false);
 	const [deviceIsMobile, setDeviceIsMobile] = useState(false);
 	const { darkMode } = useContext(DarkModeContext);
@@ -28,8 +29,6 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
-
-	useEffect(() => {}, []);
 
 	const statusIcon = {
 		Alive: '🟢',
@@ -51,8 +50,12 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 
 	const handleClose = (event) => {
 		event.preventDefault();
-		onClose(id);
-		dispatch(removeFav(id));
+		dispatch(removeCharacter(id));
+		addToast({
+			title: 'Removed',
+			description: `${name} was removed 😥`,
+			type: 'info',
+		});
 	};
 
 	const handleFavorite = (event) => {
@@ -71,15 +74,7 @@ function Card2({ id, name, status, species, gender, origin, image, onClose }) {
 		} else {
 			setIsFav(true);
 			dispatch(
-				addFav({
-					id,
-					name,
-					status,
-					species,
-					gender,
-					origin,
-					image,
-				})
+				addFav({ id, name, status, species, gender, origin, image, location })
 			);
 			addToast(
 				{
