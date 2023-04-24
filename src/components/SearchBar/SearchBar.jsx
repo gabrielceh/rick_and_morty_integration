@@ -12,6 +12,7 @@ import {
 	SearchModalBoxStyled,
 	SearchModalContainer,
 } from './SearchBar.styled';
+import SearchICon from '../icons/SearchIcon';
 
 function SearchBar({ onModalClose }) {
 	const [id, setId] = useState('');
@@ -37,9 +38,9 @@ function SearchBar({ onModalClose }) {
 		<>
 			<BtnOutlineStyled
 				color='yellow'
-				width='80px'
-				onClick={openModal}>
-				Search
+				onClick={openModal}
+				width='50px'>
+				<SearchICon />
 			</BtnOutlineStyled>
 
 			{/* MODAL */}

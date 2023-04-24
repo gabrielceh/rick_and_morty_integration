@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ROUTES_NAMES } from '../../helpers/routesName';
 import { addCharacterById } from '../../redux/actions/actionCharacters';
 import { BtnOutlineStyled } from '../../styled/BtnStyles.style';
 
@@ -14,7 +15,7 @@ function BtnGetRandom({ onModalClose }) {
 		let random = generateRandom();
 		dispatch(addCharacterById(random));
 		onModalClose();
-		navigate('/home');
+		navigate(ROUTES_NAMES.HOME);
 	};
 
 	return (

@@ -81,17 +81,12 @@ export const BtnFormSubmitStyled = styled.button`
 
 	@keyframes buttonScale {
 		0% {
-			scale: 0.9;
+			scale: 1;
 			background: ${({ theme }) => theme.colors.yellow['100']};
 		}
 
-		50% {
-			scale: 1;
-			background: ${({ theme }) => theme.colors.yellow['200']};
-		}
-
 		100% {
-			scale: 1.1;
+			scale: 1.05;
 			background: ${({ theme }) => theme.colors.yellow['300']};
 		}
 	}

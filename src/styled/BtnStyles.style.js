@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const BtnOutlineStyled = styled.button`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: ${({ width }) => (width ? width : '50px')};
 	height: ${({ height }) => (height ? height : '40px')};
 	cursor: pointer;

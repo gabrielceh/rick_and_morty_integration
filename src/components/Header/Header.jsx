@@ -1,7 +1,5 @@
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/actions/actionUser';
 
 import logoRickMorty from '../../assets/images/Rick_and_Morty_Logop.png';
 import BtnGetRandom from '../BtnGetRandom/BtnGetRandom';
@@ -19,19 +17,10 @@ import {
 	HeaderStyled,
 	LogoStyled,
 } from './Header.styled';
-import BtnHeader from '../BtnHeader/BtnHeader';
+import UserBtn from '../UserBtn.jsx/UserBtn';
 
-function Header({ setAccess }) {
-	const location = useLocation();
-	const navigate = useNavigate();
+function Header() {
 	const [isOpenMenu, openModalMenu, closeModalMenu] = useModal();
-	const dispatch = useDispatch();
-
-	const handleLogout = () => {
-		dispatch(logout());
-		closeModalMenu();
-		navigate('/', { replace: true });
-	};
 
 	return (
 		<>
@@ -48,14 +37,13 @@ function Header({ setAccess }) {
 						<NavHeader onModalClose={closeModalMenu} />
 						<SearchBar onModalClose={closeModalMenu} />
 						<BtnGetRandom onModalClose={closeModalMenu} />
-
-						<BtnHeader handleClick={handleLogout}>Logout</BtnHeader>
+						<UserBtn />
 					</ContainerMenuDesktopStyled>
 
 					{/* Botones mobile */}
 					<ContainerButtonsHeaderStyled>
 						<SearchBar onModalClose={closeModalMenu} />
-
+						<UserBtn />
 						<BtnHamburguerStyled onClick={openModalMenu}>
 							<HamburgerIcon className='svg' />
 						</BtnHamburguerStyled>
@@ -74,8 +62,6 @@ function Header({ setAccess }) {
 					<NavHeader onModalClose={closeModalMenu} />
 					<ButtonsConatinerNavStyled>
 						<BtnGetRandom onModalClose={closeModalMenu} />
-
-						<BtnHeader handleClick={handleLogout}>Logout</BtnHeader>
 					</ButtonsConatinerNavStyled>
 				</ContainerStyled>
 			</ContainerMenuMobileStyled>

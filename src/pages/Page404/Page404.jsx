@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTES_NAMES } from '../../helpers/routesName';
 import imageError from '../../assets/images/rick-morty_error.png';
 import { ContainerStyled } from '../../styled/container.styled';
 import { Image404Styled, Page404ContainerStyled } from './Page404.styled';
-import { useEffect } from 'react';
+import { BtnOutlineStyled } from '../../styled/BtnStyles.style';
 
 function Page404() {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		navigate(-1);
+		navigate(ROUTES_NAMES.HOME);
 	};
 
 	return (
@@ -22,7 +23,12 @@ function Page404() {
 				<h1>404</h1>
 				<p>Oh, geez! That page can’t be found.</p>
 
-				<button onClick={handleClick}>BACK!</button>
+				<BtnOutlineStyled
+					color='yellow'
+					width='150px'
+					onClick={handleClick}>
+					BACK to Home!
+				</BtnOutlineStyled>
 			</ContainerStyled>
 		</Page404ContainerStyled>
 	);

@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from '../../redux/actions/actionsFavorites';
 import { removeCharacter } from '../../redux/actions/actionCharacters';
 import { isMobile } from '../../helpers/userDeviceInfo';
+import { ROUTES_NAMES } from '../../helpers/routesName';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
 	ButtonCardStyled,
 	ButtonsContainerStyled,
@@ -29,6 +30,7 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
 	const dispatch = useDispatch();
+	const locationPage = useLocation();
 
 	const statusIcon = {
 		Alive: '🟢',
@@ -37,6 +39,7 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 	};
 	useEffect(() => {
 		isMobile.any() ? setDeviceIsMobile(true) : setDeviceIsMobile(false);
+		console.log(locationPage);
 	}, []);
 
 	useEffect(() => {
@@ -89,7 +92,7 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 
 	return (
 		<>
-			<Link to={`/detail/${id}`}>
+			<Link to={`${ROUTES_NAMES.DETAIL}/${id}`}>
 				<CardStyled darkMode={darkMode}>
 					<CardContainerStyled>
 						<ImgCardStyled
@@ -108,12 +111,14 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 								{/* <InfoTextStyled>Location: {origin.name}</InfoTextStyled> */}
 							</InfoBodyStyled>
 							<ButtonsContainerStyled>
-								<ButtonCardStyled
-									onClick={handleClose}
-									title='Delete'
-									className={deviceIsMobile ? 'mobile' : ''}>
-									✖️
-								</ButtonCardStyled>
+								{locationPage.pathname !== ROUTES_NAMES.FAVORITES && (
+									<ButtonCardStyled
+										onClick={handleClose}
+										title='Delete'
+										className={deviceIsMobile ? 'mobile' : ''}>
+										✖️
+									</ButtonCardStyled>
+								)}
 								<ButtonCardStyled
 									onClick={handleFavorite}
 									title='Add to favorite'

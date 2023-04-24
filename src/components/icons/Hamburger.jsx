@@ -2,8 +2,8 @@ import * as React from 'react';
 const HamburgerIcon = (props) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
-		width={44}
-		height={44}
+		width={32}
+		height={32}
 		fill='none'
 		stroke='#2c3e50'
 		strokeLinecap='round'

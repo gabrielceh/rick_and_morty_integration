@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES_NAMES } from '../../helpers/routesName';
 
 import LoginForm from '../../components/LoginForm/LoginForm';
 import imageHome from '../../assets/images/Rick_and_Morty_Logop.png';
@@ -13,7 +14,7 @@ function LoginPage() {
 
 	useEffect(() => {
 		if (user.access && user.user) {
-			navigate('/home', { replace: true });
+			navigate(ROUTES_NAMES.HOME, { replace: true });
 		}
 	}, [user]);
 

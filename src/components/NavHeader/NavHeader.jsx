@@ -1,4 +1,5 @@
 import { NavLinkStyled, NavLinksContainerStyled } from './NavHeader.styled';
+import { ROUTES_NAMES } from '../../helpers/routesName';
 
 function NavHeader({ onModalClose }) {
 	const handleClick = () => {
@@ -9,24 +10,19 @@ function NavHeader({ onModalClose }) {
 		<>
 			<NavLinksContainerStyled>
 				<NavLinkStyled
-					to='/home'
+					to={ROUTES_NAMES.HOME}
 					onClick={handleClick}>
 					Home
 				</NavLinkStyled>
 				<NavLinkStyled
-					to='/about'
+					to={ROUTES_NAMES.ABOUT}
 					onClick={handleClick}>
 					About
 				</NavLinkStyled>
 				<NavLinkStyled
-					to='/favorites'
+					to={ROUTES_NAMES.FAVORITES}
 					onClick={handleClick}>
 					Favorites
-				</NavLinkStyled>
-				<NavLinkStyled
-					to='/whaterver'
-					onClick={handleClick}>
-					Error
 				</NavLinkStyled>
 			</NavLinksContainerStyled>
 		</>

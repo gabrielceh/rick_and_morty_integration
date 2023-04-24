@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { ROUTES_NAMES } from '../helpers/routesName';
+
 import LoginPage from '../pages/Login/LoginPage';
 import HomePage from '../pages/Home/HomePage';
 import About from '../pages/About/About';
@@ -16,7 +18,7 @@ function AppRouter() {
 				path='/'
 				element={<PublicRoutes />}>
 				<Route
-					path='/'
+					path={ROUTES_NAMES.LOGIN}
 					element={<LoginPage />}
 				/>
 			</Route>
@@ -25,25 +27,26 @@ function AppRouter() {
 				path='/'
 				element={<ProtectedRoutes />}>
 				<Route
-					path='/home'
+					path={ROUTES_NAMES.HOME}
 					element={<HomePage />}
 				/>
 				<Route
-					path='/About'
+					path={ROUTES_NAMES.ABOUT}
 					element={<About />}
 				/>
 				<Route
-					path='/detail/:id'
+					path={`${ROUTES_NAMES.DETAIL}/:id`}
 					element={<Details />}
 				/>
 				<Route
-					path='/favorites'
+					path={ROUTES_NAMES.FAVORITES}
 					element={<Favorites />}
 				/>
-				<Route
+
+				{/* <Route
 					path='/test'
 					element={<Prueba />}
-				/>
+				/> */}
 			</Route>
 
 			<Route
