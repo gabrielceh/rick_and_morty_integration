@@ -5,7 +5,6 @@ import { loaderOff, loaderOn } from './loadingActions';
 export const GET_CHARACTERS = 'GET_ALL_CHARACTERS';
 export const ADD_CHARACTER_BY_ID = 'ADD_CHARACTER_BY_ID';
 export const REMOVE_CHARACTER = 'REMOVECHARACTER';
-export const LOADER_ON = 'LOADER_ON';
 
 export const getCharacters = () => {
 	return {
@@ -14,22 +13,23 @@ export const getCharacters = () => {
 };
 
 export const addCharacterById = (id) => {
-	return function (dispatch) {
+	return async function (dispatch) {
 		dispatch(loaderOn());
-		return axios(`${urls.baseURL}/${id}`)
-			.then(({ data }) => {
-				dispatch({
-					type: ADD_CHARACTER_BY_ID,
-					payload: { error: '', data },
-				});
-			})
-			.catch((error) => {
-				dispatch({
-					type: ADD_CHARACTER_BY_ID,
-					payload: { error, data: {} },
-				});
-			})
-			.finally(() => dispatch(loaderOff()));
+		try {
+			const { data } = await axios(`${urls.baseURL}/${id}`);
+			dispatch({
+				type: ADD_CHARACTER_BY_ID,
+				payload: { error: null, data },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: ADD_CHARACTER_BY_ID,
+				payload: { error: error.response.data.error, data: {} },
+			});
+		} finally {
+			dispatch(loaderOff());
+		}
 	};
 };
 

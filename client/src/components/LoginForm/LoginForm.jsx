@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/actions/actionUser';
+import { ToastContext } from '../../context/ToastContext';
+
 import { validateLoginForm } from '../../helpers/validation';
 import {
 	BtnFormSubmitStyled,
@@ -19,9 +21,21 @@ const initialState = {
 function LoginForm() {
 	const [userData, setUserData] = useState(initialState);
 	const [errors, setErrors] = useState({});
+	const { addToast } = useContext(ToastContext);
 
 	const loader = useSelector((state) => state.loader);
+	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (user.error) {
+			addToast({
+				title: 'Removed',
+				description: user.error,
+				type: 'error',
+			});
+		}
+	}, [user]);
 
 	const handleChange = (event) => {
 		const value = event.target.value;

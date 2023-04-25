@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SelectSectionStyled = styled.section`
 	position: sticky;
 	top: 83px;
-	z-index: 5;
+	z-index: 2;
 	padding: 0.5rem 1rem;
 	padding-bottom: 0.2rem;
 	background-color: ${({ theme }) => theme.body};

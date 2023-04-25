@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import { addCharacterById } from '../../redux/actions/actionCharacters';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { useModal } from '../../hooks/useModal';
 import { BtnOutlineStyled } from '../../styled/BtnStyles.style';
+
 import {
 	BtnCloseModalStyled,
 	ButtonSearchStyled,
@@ -17,6 +19,7 @@ import SearchICon from '../icons/SearchIcon';
 function SearchBar({ onModalClose }) {
 	const [id, setId] = useState('');
 	const { darkMode } = useContext(DarkModeContext);
+
 	const [isOpen, openModal, closeModal] = useModal();
 
 	const dispatch = useDispatch();

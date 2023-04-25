@@ -18,7 +18,14 @@ function UserBtn() {
 	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
-	const handleOpen = () => {
+	const body = document.querySelector('body');
+
+	body.addEventListener('click', (event) => {
+		closeModal();
+	});
+
+	const handleOpen = (event) => {
+		event.stopPropagation();
 		if (isOpen) {
 			closeModal();
 		} else {
@@ -26,7 +33,8 @@ function UserBtn() {
 		}
 	};
 
-	const handleLogout = () => {
+	const handleLogout = (event) => {
+		event.stopPropagation();
 		dispatch(logout());
 		navigate(ROUTES_NAMES.LOGIN, { replace: true });
 	};
@@ -38,7 +46,7 @@ function UserBtn() {
 			</UserBtnStyled>
 
 			{isOpen && (
-				<MenuUserHeader>
+				<MenuUserHeader onClick={(event) => event.stopPropagation()}>
 					<MenuUserITems>{user.user.email}</MenuUserITems>
 					<MenuUserITems onClick={handleLogout}>Logout</MenuUserITems>
 				</MenuUserHeader>

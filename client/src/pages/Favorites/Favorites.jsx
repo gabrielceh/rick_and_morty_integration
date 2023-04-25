@@ -47,7 +47,6 @@ function Favorites() {
 	const handleFilter = (event) => {
 		let filter = event.target.value;
 		if (filter.trim()) {
-			console.log(filter);
 			dispatch(filterFav(filter));
 		}
 	};

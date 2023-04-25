@@ -9,6 +9,7 @@ import {
 const initialState = {
 	allCharactersFav: [],
 	myFavorites: [],
+	error: null,
 };
 
 export const favReducer = (state = initialState, action) => {
@@ -16,24 +17,39 @@ export const favReducer = (state = initialState, action) => {
 		case GET_FAVS: {
 			return {
 				...state,
-				myFavorites: [...action.payload],
-				allCharactersFav: [...action.payload],
+				myFavorites: [...action.payload.data],
+				allCharactersFav: [...action.payload.data],
+				error: null,
 			};
 		}
 
 		case ADD_FAV: {
+			if (action.payload.error) {
+				return {
+					...state,
+					error: action.payload.error,
+				};
+			}
 			return {
 				...state,
-				myFavorites: [...action.payload],
-				allCharactersFav: [...action.payload],
+				myFavorites: [...action.payload.data],
+				allCharactersFav: [...action.payload.data],
+				error: null,
 			};
 		}
 
 		case REMOVE_FAV: {
+			if (action.payload.error) {
+				return {
+					...state,
+					error: action.payload.error,
+				};
+			}
 			return {
 				...state,
-				allCharactersFav: [...action.payload],
-				myFavorites: [...action.payload],
+				allCharactersFav: [...action.payload.data],
+				myFavorites: [...action.payload.data],
+				error: null,
 			};
 		}
 
@@ -43,6 +59,7 @@ export const favReducer = (state = initialState, action) => {
 				return {
 					...state,
 					myFavorites: [...state.allCharactersFav],
+					error: null,
 				};
 			}
 			const filter = copyAllcharFilter.filter(
@@ -51,6 +68,7 @@ export const favReducer = (state = initialState, action) => {
 			return {
 				...state,
 				myFavorites: filter,
+				error: null,
 			};
 		}
 
@@ -62,6 +80,7 @@ export const favReducer = (state = initialState, action) => {
 
 			return {
 				...state,
+				error: null,
 				myFavorites:
 					action.payload === 'A'
 						? copyAllCharOrder.sort((a, b) => parseInt(a?.id) - parseInt(b?.id))

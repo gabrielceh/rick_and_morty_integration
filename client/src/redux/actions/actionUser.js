@@ -6,7 +6,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
 export const login = (userData) => {
-	return function (dispatch) {
+	return async function (dispatch) {
 		dispatch(loaderOn());
 		const options = {
 			email: userData.email,
@@ -15,22 +15,20 @@ export const login = (userData) => {
 				'Content-Type': 'application/json',
 			},
 		};
-		return axios
-			.post(`${urls.login}`, options)
-			.then(({ data }) => {
-				dispatch({
-					type: LOGIN,
-					payload: data,
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				dispatch({
-					type: LOGIN,
-					payload: error.response.data,
-				});
-			})
-			.finally(() => dispatch(loaderOff()));
+		try {
+			const { data } = await axios.post(`${urls.login}`, options);
+			dispatch({
+				type: LOGIN,
+				payload: data,
+			});
+		} catch (error) {
+			dispatch({
+				type: LOGIN,
+				payload: error.response.data,
+			});
+		} finally {
+			dispatch(loaderOff());
+		}
 	};
 };
 
