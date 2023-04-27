@@ -39,7 +39,6 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 	};
 	useEffect(() => {
 		isMobile.any() ? setDeviceIsMobile(true) : setDeviceIsMobile(false);
-		console.log(locationPage);
 	}, []);
 
 	useEffect(() => {

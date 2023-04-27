@@ -21,7 +21,7 @@ const getCharById = async (req, res) => {
 		return res.status(200).json(character);
 	} catch (error) {
 		error.response?.status
-			? res.status(500).json({ error: error.response.data.error })
+			? res.status(404).json({ error: error.response.data.error })
 			: res.status(500).json({ error: 'Server error' });
 	}
 };
