@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actions/actionUser';
+import { LOGIN, LOGOUT, REGISTER } from '../actions/actionUser';
 
 const initialState = {
 	access: false,
@@ -16,6 +16,11 @@ export const userReducer = (state = initialState, action) => {
 		case LOGOUT:
 			return {
 				...initialState,
+			};
+
+		case REGISTER:
+			return {
+				...action.payload,
 			};
 
 		default:

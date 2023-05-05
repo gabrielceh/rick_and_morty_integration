@@ -30,7 +30,7 @@ function LoginForm() {
 	useEffect(() => {
 		if (user.error) {
 			addToast({
-				title: 'Removed',
+				title: 'Error',
 				description: user.error,
 				type: 'error',
 			});
@@ -49,7 +49,7 @@ function LoginForm() {
 		event.preventDefault();
 
 		for (let input in userData) {
-			if (!userData[input].trim()) return window.alert(`Ingrese su ${input}`);
+			if (!userData[input].trim()) return window.alert(`Enter your ${input}`);
 		}
 
 		for (let error in errors) {
@@ -98,9 +98,7 @@ function LoginForm() {
 				)}
 			</InputContainerStyled>
 
-			<BtnFormSubmitStyled type='submit'>
-				{loader ? 'Loading' : 'Login'}
-			</BtnFormSubmitStyled>
+			<BtnFormSubmitStyled type='submit'>{loader ? 'Loading' : 'Login'}</BtnFormSubmitStyled>
 		</FormLoginContainerStyled>
 	);
 }

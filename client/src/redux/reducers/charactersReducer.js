@@ -2,6 +2,7 @@ import {
 	GET_CHARACTERS,
 	ADD_CHARACTER_BY_ID,
 	REMOVE_CHARACTER,
+	RESTART_CHARACTER,
 } from '../actions/actionCharacters';
 
 const intitalState = {
@@ -43,9 +44,7 @@ export const charactetReducer = (state = intitalState, action) => {
 			};
 
 		case REMOVE_CHARACTER:
-			const charactersFiltered = state.data.filter(
-				(character) => character.id !== action.payload
-			);
+			const charactersFiltered = state.data.filter((character) => character.id !== action.payload);
 
 			if (charactersFiltered.length === state.data.length)
 				return {
@@ -57,6 +56,12 @@ export const charactetReducer = (state = intitalState, action) => {
 				error: null,
 				data: [...charactersFiltered],
 			};
+
+		case RESTART_CHARACTER: {
+			return {
+				...intitalState,
+			};
+		}
 
 		default:
 			return {

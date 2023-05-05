@@ -10,6 +10,7 @@ import Prueba from '../components/Prueba';
 import Page404 from '../pages/Page404/Page404';
 import ProtectedRoutes from './ProtectedRoutes';
 import PublicRoutes from './PublicRoutes';
+import Register from '../pages/Register/Register';
 
 function AppRouter() {
 	return (
@@ -20,6 +21,10 @@ function AppRouter() {
 				<Route
 					path={ROUTES_NAMES.LOGIN}
 					element={<LoginPage />}
+				/>
+				<Route
+					path={ROUTES_NAMES.REGISTER}
+					element={<Register />}
 				/>
 			</Route>
 

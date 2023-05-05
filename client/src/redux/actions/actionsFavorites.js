@@ -7,13 +7,14 @@ export const ADD_FAV = 'ADD_FAV';
 export const REMOVE_FAV = 'REMOVE_FAV';
 export const FILTER_FAV = 'FILTER_FAV';
 export const ORDER_FAV = 'ORDER_FAV';
+export const RESTART_FAV = 'RESTART_FAV';
 
 // ACTION CREATORS FVORITES
 
-export const getFavs = () => {
+export const getFavs = (userId) => {
 	return async (dispatch) => {
 		try {
-			const { data } = await axios.get(`${urls.fav}/`);
+			const { data } = await axios.get(`${urls.fav}/${userId}`);
 			return dispatch({
 				type: GET_FAVS,
 				payload: { data, error: null },
@@ -50,10 +51,16 @@ export const addFav = (character) => {
 	};
 };
 
-export const removeFav = (id) => {
+export const removeFav = (id, userId) => {
 	return async (dispatch) => {
 		try {
-			const { data } = await axios.delete(`${urls.fav}/${id}`);
+			const options = {
+				userId,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
+			const { data } = await axios.delete(`${urls.fav}/${userId}/${id}`, options);
 			return dispatch({
 				type: REMOVE_FAV,
 				payload: { data, error: null },
@@ -78,5 +85,11 @@ export const orderFav = (order) => {
 	return {
 		type: ORDER_FAV,
 		payload: order,
+	};
+};
+
+export const restartFav = () => {
+	return {
+		type: RESTART_FAV,
 	};
 };

@@ -4,6 +4,7 @@ import {
 	ORDER_FAV,
 	FILTER_FAV,
 	GET_FAVS,
+	RESTART_FAV,
 } from '../actions/actionsFavorites';
 
 const initialState = {
@@ -62,9 +63,7 @@ export const favReducer = (state = initialState, action) => {
 					error: null,
 				};
 			}
-			const filter = copyAllcharFilter.filter(
-				(character) => character?.gender === action.payload
-			);
+			const filter = copyAllcharFilter.filter((character) => character?.gender === action.payload);
 			return {
 				...state,
 				myFavorites: filter,
@@ -84,9 +83,13 @@ export const favReducer = (state = initialState, action) => {
 				myFavorites:
 					action.payload === 'A'
 						? copyAllCharOrder.sort((a, b) => parseInt(a?.id) - parseInt(b?.id))
-						: copyAllCharOrder.sort(
-								(a, b) => parseInt(b?.id) - parseInt(a?.id)
-						  ),
+						: copyAllCharOrder.sort((a, b) => parseInt(b?.id) - parseInt(a?.id)),
+			};
+		}
+
+		case RESTART_FAV: {
+			return {
+				...initialState,
 			};
 		}
 

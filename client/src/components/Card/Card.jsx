@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 // import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav } from '../../redux/actions/actionsFavorites';
@@ -25,10 +25,16 @@ import { ToastContext } from '../../context/ToastContext';
 function Card2({ id, name, status, species, gender, origin, image, location }) {
 	const [isFav, setIsFav] = useState(false);
 	const [deviceIsMobile, setDeviceIsMobile] = useState(false);
+
+	const [isRemoved, setIsRemoved] = useState(false);
+	const [isAdded, setIsAdded] = useState(false);
+
 	const { darkMode } = useContext(DarkModeContext);
 	const { addToast } = useContext(ToastContext);
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
+	const favoriteError = useSelector((state) => state.favorites.error);
+	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const locationPage = useLocation();
 
@@ -37,6 +43,33 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 		Dead: '🔴',
 		unknown: '🔘',
 	};
+
+	const messageToast = useCallback(
+		(tittleSuccess, messageSuccess) => {
+			if (favoriteError) {
+				addToast(
+					{
+						title: 'Error',
+						description: favoriteError,
+						type: 'error',
+					},
+					'bottom-right'
+				);
+			} else {
+				addToast(
+					{
+						title: tittleSuccess,
+						description: messageSuccess,
+						type: 'success',
+					},
+					'bottom-right'
+				);
+				setIsFav(!isFav);
+			}
+		},
+		[addToast, favoriteError]
+	);
+
 	useEffect(() => {
 		isMobile.any() ? setDeviceIsMobile(true) : setDeviceIsMobile(false);
 	}, []);
@@ -49,6 +82,22 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 			}
 		});
 	}, [myFavorites, id]);
+
+	useEffect(() => {
+		// Validamos si estamos removiendo
+		// Disparamos el error o el caso de exito
+		if (isRemoved) messageToast('Removed from favs', `${name} was removed from your favorites`);
+
+		setIsRemoved(false);
+	}, [isRemoved, favoriteError, messageToast, name]);
+
+	useEffect(() => {
+		// validamos si estamos agregando
+		// disparamos el error o el exito
+		if (isAdded) messageToast('Added to favs', `${name} was added to your favorites`);
+
+		setIsAdded(false);
+	}, [isAdded, favoriteError, messageToast, name]);
 
 	const handleClose = (event) => {
 		event.preventDefault();
@@ -63,28 +112,24 @@ function Card2({ id, name, status, species, gender, origin, image, location }) {
 	const handleFavorite = (event) => {
 		event.preventDefault();
 		if (isFav) {
-			setIsFav(false);
-			dispatch(removeFav(id));
-			addToast(
-				{
-					title: 'Removed from favs',
-					description: `${name} was removed from your favorites`,
-					type: 'info',
-				},
-				'bottom-right'
-			);
+			setIsAdded(false);
+			dispatch(removeFav(id, user.user.userId));
+			setIsRemoved(true);
 		} else {
-			setIsFav(true);
+			setIsRemoved(false);
+			setIsAdded(true);
 			dispatch(
-				addFav({ id, name, status, species, gender, origin, image, location })
-			);
-			addToast(
-				{
-					title: 'Added to favs',
-					description: `${name} was added to your favorites`,
-					type: 'success',
-				},
-				'bottom-right'
+				addFav({
+					id,
+					name,
+					status,
+					species,
+					gender,
+					origin,
+					image,
+					location,
+					userId: user.user.userId,
+				})
 			);
 		}
 	};

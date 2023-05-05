@@ -18,8 +18,7 @@ export const CardStyled = styled.article`
 	position: relative;
 	width: 300px;
 	height: 300px;
-	transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out,
-		scale 0.3s ease-in;
+	transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out, scale 0.3s ease-in;
 	border-radius: 7px;
 	overflow: hidden;
 
@@ -62,27 +61,21 @@ export const CardStyled = styled.article`
 		0% {
 			box-shadow: ${({ theme, darkMode }) =>
 				`0px 0px 25px 5px ${
-					darkMode === 'light'
-						? theme.colors.emerald['600']
-						: theme.colors.emerald['200']
+					darkMode === 'light' ? theme.colors.emerald['600'] : theme.colors.emerald['200']
 				}`};
 		}
 
 		50% {
 			box-shadow: ${({ theme, darkMode }) =>
 				`0px 0px 0px 0px ${
-					darkMode === 'light'
-						? theme.colors.emerald['600']
-						: theme.colors.emerald['200']
+					darkMode === 'light' ? theme.colors.emerald['600'] : theme.colors.emerald['200']
 				}`};
 		}
 
 		100% {
 			box-shadow: ${({ theme, darkMode }) =>
 				`0px 0px 25px 5px ${
-					darkMode === 'light'
-						? theme.colors.emerald['600']
-						: theme.colors.emerald['200']
+					darkMode === 'light' ? theme.colors.emerald['600'] : theme.colors.emerald['200']
 				}`};
 		}
 	}
@@ -127,8 +120,7 @@ export const InfoContainerStyled = styled.div`
 	gap: 1rem;
 	opacity: 0;
 	visibility: hidden;
-	transition: background-color 0.3s ease-in-out, height 0.3s ease-in-out,
-		opacity 0.3s ease-in;
+	transition: background-color 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in;
 
 	${CardStyled}:hover & {
 		background-color: ${(props) => `${props.theme.colors.slate['900']}aa`};
@@ -183,15 +175,15 @@ export const ButtonsContainerStyled = styled.div`
 	gap: 2rem;
 `;
 
-export const ButtonCardStyled = styled.button`
+export const ButtonCardStyled = styled.div`
 	cursor: pointer;
 	font-family: 'PTMono';
 	border-radius: 50%;
 	padding: 0.5rem;
 	border: 3px solid white;
 	background-color: ${(props) => `${props.theme.colors.yellow['200']}`};
-	transition: background-color 0.1s ease-in-out, scale 0.1s ease-in-out,
-		translate 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+	transition: background-color 0.1s ease-in-out, scale 0.1s ease-in-out, translate 0.1s ease-in-out,
+		box-shadow 0.1s ease-in-out;
 
 	&.mobile {
 		width: 60px;
@@ -207,7 +199,6 @@ export const ButtonCardStyled = styled.button`
 	&:active {
 		scale: 0.95;
 		translate: 0px 0px;
-		box-shadow: ${({ theme }) =>
-			`3px 3px 5px ${theme.colors.yellow['900']} inset`};
+		box-shadow: ${({ theme }) => `3px 3px 5px ${theme.colors.yellow['900']} inset`};
 	}
 `;

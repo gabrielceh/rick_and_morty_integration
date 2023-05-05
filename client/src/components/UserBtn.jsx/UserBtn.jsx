@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
 import { ROUTES_NAMES } from '../../helpers/routesName';
 import { logout } from '../../redux/actions/actionUser';
+import { restartCharacter } from '../../redux/actions/actionCharacters';
+import { restartFav } from '../../redux/actions/actionsFavorites';
 import {
 	MenuUserHeader,
 	MenuUserITems,
@@ -36,6 +38,8 @@ function UserBtn() {
 	const handleLogout = (event) => {
 		event.stopPropagation();
 		dispatch(logout());
+		dispatch(restartCharacter());
+		dispatch(restartFav());
 		navigate(ROUTES_NAMES.LOGIN, { replace: true });
 	};
 

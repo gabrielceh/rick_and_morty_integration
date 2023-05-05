@@ -30,10 +30,11 @@ function Favorites() {
 	const [aux, setAux] = useState(false);
 
 	const myFavorites = useSelector((state) => state.favorites.myFavorites);
+	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getFavs());
+		dispatch(getFavs(user.user.userId));
 	}, []);
 
 	const handleOrder = (event) => {

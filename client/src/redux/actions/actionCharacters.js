@@ -5,6 +5,7 @@ import { loaderOff, loaderOn } from './loadingActions';
 export const GET_CHARACTERS = 'GET_ALL_CHARACTERS';
 export const ADD_CHARACTER_BY_ID = 'ADD_CHARACTER_BY_ID';
 export const REMOVE_CHARACTER = 'REMOVECHARACTER';
+export const RESTART_CHARACTER = 'RESTART_CHARACTER';
 
 export const getCharacters = () => {
 	return {
@@ -17,6 +18,7 @@ export const addCharacterById = (id) => {
 		dispatch(loaderOn());
 		try {
 			const { data } = await axios(`${urls.baseURL}/${id}`);
+
 			dispatch({
 				type: ADD_CHARACTER_BY_ID,
 				payload: { error: null, data },
@@ -37,5 +39,11 @@ export const removeCharacter = (id) => {
 	return {
 		type: REMOVE_CHARACTER,
 		payload: id,
+	};
+};
+
+export const restartCharacter = () => {
+	return {
+		type: RESTART_CHARACTER,
 	};
 };
