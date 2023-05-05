@@ -5,10 +5,10 @@ const {
 	getFav,
 } = require('../controllers/handleFavorite.js');
 
-router.get('/', getFav);
+router.get('/:userId', getFav);
 
 router.post('/', postFav);
 
-router.delete('/:id', deleteFav);
+router.delete('/:userId/:id', deleteFav);
 
 module.exports = router;

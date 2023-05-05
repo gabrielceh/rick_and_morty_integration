@@ -1,11 +1,29 @@
+const { Favorite, User } = require('../DB_connection');
+
 let myFavorites = [];
 
-const getFav = (req, res) => {
-	return res.status(200).json(myFavorites);
+const getFav = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		if (!userId) {
+			return res.status(400).json({
+				error: `Please, send the user ID`,
+			});
+		}
+
+		const user = await User.findByPk(userId);
+		if (!user) {
+			return res.status(404).json({ error: 'User not found' });
+		}
+		const all = await user.getFavorites();
+		return res.status(200).json(all);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
 
-const postFav = (req, res) => {
-	const { id, name, status, species, image, gender, origin, location } =
+const postFav = async (req, res) => {
+	const { id, name, status, species, image, gender, origin, location, userId } =
 		req.body;
 
 	if (
@@ -23,13 +41,13 @@ const postFav = (req, res) => {
 		});
 	}
 
-	const findId = myFavorites.find((fav) => fav.id === +id);
-
-	if (findId) {
-		return res.status(400).json({ error: `Id ${id} in favorites` });
+	if (!userId) {
+		return res.status(400).json({
+			error: `Please, send all the userId`,
+		});
 	}
 
-	myFavorites.push({
+	const character = {
 		id,
 		name,
 		status,
@@ -38,25 +56,64 @@ const postFav = (req, res) => {
 		gender,
 		origin,
 		location,
-	});
+	};
 
-	return res.status(200).json(myFavorites);
-};
+	const finded = await Favorite.findByPk(id);
+	const user = await User.findByPk(userId);
 
-const deleteFav = (req, res) => {
-	const { id } = req.params;
-
-	const favFiltered = myFavorites.filter((fav) => fav.id !== +id);
-
-	if (favFiltered.length === myFavorites.length) {
-		return res
-			.status(404)
-			.json({ error: `ID ${id} not found`, data: myFavorites });
+	if (!user) {
+		return res.status(400).json({
+			error: `User not found`,
+		});
 	}
 
-	myFavorites = [...favFiltered];
+	if (finded) {
+		return res.status(400).json({
+			error: `Character is already in your favs`,
+		});
+	}
 
-	return res.status(200).json(myFavorites);
+	const char = await Favorite.create(character);
+	// creamos la relacion
+	await user.addFavorite(char);
+
+	const favorites = await Favorite.findAll();
+
+	return res.status(200).json(favorites);
+};
+
+const deleteFav = async (req, res) => {
+	try {
+		const { id, userId } = req.params;
+
+		if (!id || !userId) {
+			return res.status(400).json({
+				error: `Please, send all data`,
+			});
+		}
+
+		const char = await Favorite.findByPk(id);
+		const user = await User.findByPk(userId);
+
+		if (!char) {
+			return res.status(400).json({
+				error: `Character not found`,
+			});
+		}
+		if (!user) {
+			return res.status(400).json({
+				error: `User not found`,
+			});
+		}
+
+		user.removeFavorite(char);
+		await Favorite.destroy({ where: { id } });
+		const favorites = await Favorite.findAll();
+
+		return res.status(200).json(favorites);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
 };
 
 module.exports = {

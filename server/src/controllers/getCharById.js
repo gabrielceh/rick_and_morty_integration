@@ -15,8 +15,8 @@ const getCharById = async (req, res) => {
 			species: data.species,
 			image: data.image,
 			gender: data.gender,
-			origin: data.origin,
-			location: data.location,
+			origin: data.origin.name,
+			location: data.location.name,
 		};
 		return res.status(200).json(character);
 	} catch (error) {
